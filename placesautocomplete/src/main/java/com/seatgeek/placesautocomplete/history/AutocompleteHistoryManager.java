@@ -38,23 +38,23 @@ public class AutocompleteHistoryManager {
     }
 
     @NonNull
-    private final AtomicFile mSavedFile;
+    private final AtomicFile savedFile;
 
     @NonNull
-    private final PlacesApiJsonParser mJsonParser;
+    private final PlacesApiJsonParser jsonParser;
 
     @NonNull
-    private List<Place> mPlaces;
+    private List<Place> places;
 
     @Nullable
-    private OnHistoryUpdatedListener mListener;
+    private OnHistoryUpdatedListener listener;
 
     private AutocompleteHistoryManager(@NonNull final File historyFile, @NonNull final PlacesApiJsonParser parser) {
-        mSavedFile = new AtomicFile(historyFile);
+        savedFile = new AtomicFile(historyFile);
 
-        mJsonParser = parser;
+        jsonParser = parser;
 
-        mPlaces = new ArrayList<Place>();
+        places = new ArrayList<>();
 
         readPlaces();
     }
@@ -65,8 +65,8 @@ public class AutocompleteHistoryManager {
             public List<Place> executeInBackground() throws Exception {
                 InputStream is = null;
                 try {
-                    is = mSavedFile.openRead();
-                    return mJsonParser.readHistoryJson(is);
+                    is = savedFile.openRead();
+                    return jsonParser.readHistoryJson(is);
                 } finally {
                     if (is != null) {
                         is.close();
@@ -93,7 +93,7 @@ public class AutocompleteHistoryManager {
     }
 
     public void setListener(@Nullable final OnHistoryUpdatedListener listener) {
-        mListener = listener;
+        this.listener = listener;
     }
 
     public void addItemToHistory(@NonNull final Place place) {
@@ -103,33 +103,33 @@ public class AutocompleteHistoryManager {
     }
 
     private void internalAddItem(@NonNull final Place place) {
-        mPlaces.remove(place);
-        mPlaces.add(0, place);
+        places.remove(place);
+        places.add(0, place);
 
         trimPlaces();
     }
 
     private void trimPlaces() {
-        if (mPlaces.size() > MAX_HISTORY_ITEM_COUNT) {
-            mPlaces = new ArrayList<>(mPlaces.subList(0, MAX_HISTORY_ITEM_COUNT));
+        if (places.size() > MAX_HISTORY_ITEM_COUNT) {
+            places = new ArrayList<>(places.subList(0, MAX_HISTORY_ITEM_COUNT));
         }
     }
 
     private void executeSave() {
-        final List<Place> finalPlaces = new ArrayList<>(mPlaces);
+        final List<Place> finalPlaces = new ArrayList<>(places);
 
         BackgroundExecutorService.INSTANCE.enqueue(new BackgroundJob<Void>() {
             @Override
             public Void executeInBackground() throws Exception {
                 FileOutputStream fos = null;
                 try {
-                    fos = mSavedFile.startWrite();
-                    mJsonParser.writeHistoryJson(fos, finalPlaces);
+                    fos = savedFile.startWrite();
+                    jsonParser.writeHistoryJson(fos, finalPlaces);
                 } catch (IOException e) {
-                    mSavedFile.failWrite(fos);
+                    savedFile.failWrite(fos);
                     throw new IOException("Failed history file write", e);
                 } finally {
-                    mSavedFile.finishWrite(fos);
+                    savedFile.finishWrite(fos);
                 }
                 return null;
             }
@@ -144,7 +144,7 @@ public class AutocompleteHistoryManager {
 
             @Override
             public void onFailure(final Throwable error) {
-                mPlaces = new ArrayList<Place>();
+                places = new ArrayList<>();
                 fireUpdatedListener();
                 if (PlacesAutocompleteTextView.DEBUG) {
                     Log.e(Constants.LOG_TAG, "Failure to save the autocomplete history!", error);
@@ -152,8 +152,8 @@ public class AutocompleteHistoryManager {
             }
 
             private void fireUpdatedListener() {
-                if (mListener != null) {
-                    mListener.onHistoryUpdated(mPlaces);
+                if (listener != null) {
+                    listener.onHistoryUpdated(places);
                 }
             }
         });
@@ -161,6 +161,6 @@ public class AutocompleteHistoryManager {
 
     @NonNull
     public List<Place> getPastSelections() {
-        return mPlaces;
+        return places;
     }
 }

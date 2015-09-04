@@ -37,47 +37,47 @@ public class PlacesApi {
     }
 
     @NonNull
-    private final PlacesHttpClient mHttpClient;
+    private final PlacesHttpClient httpClient;
 
     @NonNull
-    private final String mGoogleApiKey;
+    private final String googleApiKey;
 
     @Nullable
-    private Location mCurrentLocation;
+    private Location currentLocation;
 
     @Nullable
-    private Long mRadiusM;
+    private Long radiusM;
 
-    private boolean mLocationBiasEnabled = true;
+    private boolean locationBiasEnabled = true;
 
     public PlacesApi(@NonNull final PlacesHttpClient httpClient, @NonNull final String googleApiKey) {
-        mHttpClient = httpClient;
-        mGoogleApiKey = googleApiKey;
+        this.httpClient = httpClient;
+        this.googleApiKey = googleApiKey;
     }
 
     public boolean isLocationBiasEnabled() {
-        return mLocationBiasEnabled;
+        return locationBiasEnabled;
     }
 
     public void setLocationBiasEnabled(boolean enabled) {
-        mLocationBiasEnabled = enabled;
+        locationBiasEnabled = enabled;
     }
 
     public Long getRadiusMeters() {
-        return mRadiusM;
+        return radiusM;
     }
 
     public void setRadiusMeters(final Long radiusM) {
-        mRadiusM = radiusM;
+        this.radiusM = radiusM;
     }
 
     @Nullable
     public Location getCurrentLocation() {
-        return mCurrentLocation;
+        return currentLocation;
     }
 
     public void setCurrentLocation(@Nullable final Location currentLocation) {
-        mCurrentLocation = currentLocation;
+        this.currentLocation = currentLocation;
     }
 
     public PlacesAutocompleteResponse autocomplete(final String input, final AutocompleteResultType type) throws IOException {
@@ -90,23 +90,23 @@ public class PlacesApi {
                 .appendPath(PATH_AUTOCOMPLETE)
                 .appendPath(PATH_JSON)
                 .appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam())
-                .appendQueryParameter(PARAMETER_KEY, mGoogleApiKey)
+                .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_INPUT, finalInput);
 
-        if (mLocationBiasEnabled && mCurrentLocation != null) {
-            uriBuilder.appendQueryParameter(PARAMETER_LOCATION, LocationUtils.toLatLngString(mCurrentLocation));
+        if (locationBiasEnabled && currentLocation != null) {
+            uriBuilder.appendQueryParameter(PARAMETER_LOCATION, LocationUtils.toLatLngString(currentLocation));
         }
 
-        if (mLocationBiasEnabled && mRadiusM != null) {
-            uriBuilder.appendQueryParameter(PARAMETER_RADIUS, mRadiusM.toString());
+        if (locationBiasEnabled && radiusM != null) {
+            uriBuilder.appendQueryParameter(PARAMETER_RADIUS, radiusM.toString());
         }
 
-        if (!mLocationBiasEnabled) {
+        if (!locationBiasEnabled) {
             uriBuilder.appendQueryParameter(PARAMETER_LOCATION, LocationUtils.toLatLngString(NO_BIAS_LOCATION));
             uriBuilder.appendQueryParameter(PARAMETER_RADIUS, NO_BIAS_RADIUS.toString());
         }
 
-        return mHttpClient.executeAutocompleteRequest(uriBuilder.build());
+        return httpClient.executeAutocompleteRequest(uriBuilder.build());
     }
 
     public PlacesDetailsResponse details(final String placeId) throws IOException {
@@ -114,9 +114,9 @@ public class PlacesApi {
                 .buildUpon()
                 .appendPath(PATH_DETAILS)
                 .appendPath(PATH_JSON)
-                .appendQueryParameter(PARAMETER_KEY, mGoogleApiKey)
+                .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_PLACE_ID, placeId);
 
-        return mHttpClient.executeDetailsRequest(uriBuilder.build());
+        return httpClient.executeDetailsRequest(uriBuilder.build());
     }
 }

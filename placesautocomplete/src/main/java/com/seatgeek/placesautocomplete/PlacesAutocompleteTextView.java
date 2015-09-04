@@ -3,7 +3,6 @@ package com.seatgeek.placesautocomplete;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -35,21 +34,21 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     public static final boolean DEBUG = false;
 
     @Nullable
-    private AutocompleteResultType mResultType;
+    private AutocompleteResultType resultType;
 
     @NonNull
-    private PlacesApi mApi;
+    private PlacesApi api;
 
     @Nullable
-    private OnPlaceSelectedListener mListener;
+    private OnPlaceSelectedListener listener;
 
     @Nullable
-    private AutocompleteHistoryManager mHistoryManager;
+    private AutocompleteHistoryManager historyManager;
 
     @NonNull
-    private AbstractPlacesAutocompleteAdapter mAdapter;
+    private AbstractPlacesAutocompleteAdapter adapter;
 
-    private boolean mIsCompletionEnabled = true;
+    private boolean completionEnabled = true;
 
     public PlacesAutocompleteTextView(@NonNull final Context context, @NonNull final String googleApiKey) {
         super(context);
@@ -67,20 +66,20 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs, R.attr.placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, null);
+        init(context, attrs, R.attr.placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pac_default_history_file_name));
     }
 
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defAttr) {
         super(context, attrs, defAttr);
 
-        init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, null);
+        init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pac_default_history_file_name));
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        init(context, attrs, defStyleAttr, defStyleRes, null, null);
+        init(context, attrs, defStyleAttr, defStyleRes, null, context.getString(R.string.pac_default_history_file_name));
     }
 
     private void init(@NonNull final Context context, final AttributeSet attrs, final int defAttr, final int defStyle, final String googleApiKey, final String historyFileName) {
@@ -88,13 +87,13 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_googleMapsApiKey);
         String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_adapterClass);
         String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_historyFile);
-        mResultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
+        resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
         typedArray.recycle();
 
         final String finalHistoryFileName = historyFileName != null ? historyFileName : layoutHistoryFile;
 
         if (!TextUtils.isEmpty(finalHistoryFileName)) {
-            mHistoryManager = AutocompleteHistoryManager.fromPath(context, finalHistoryFileName);
+            historyManager = AutocompleteHistoryManager.fromPath(context, finalHistoryFileName);
         }
 
         final String finalApiKey = googleApiKey != null ? googleApiKey : layoutApiKey;
@@ -103,30 +102,30 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
             throw new InflateException("Did not specify googleApiKey!");
         }
 
-        mApi = new PlacesApiBuilder()
+        api = new PlacesApiBuilder()
                 .setApiClient(PlacesHttpClientResolver.PLACES_HTTP_CLIENT)
                 .setGoogleApiKey(finalApiKey)
                 .build();
 
         if (layoutAdapterClass != null) {
-            mAdapter = adapterForClass(context, layoutAdapterClass);
+            adapter = adapterForClass(context, layoutAdapterClass);
         } else {
-            mAdapter = new DefaultAutocompleteAdapter(context, mApi, mResultType, mHistoryManager);
+            adapter = new DefaultAutocompleteAdapter(context, api, resultType, historyManager);
         }
 
-        super.setAdapter(mAdapter);
+        super.setAdapter(adapter);
 
         super.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                Place place = mAdapter.getItem(position);
+                Place place = adapter.getItem(position);
 
-                if (mListener != null) {
-                    mListener.onPlaceSelected(place);
+                if (listener != null) {
+                    listener.onPlaceSelected(place);
                 }
 
-                if (mHistoryManager != null) {
-                    mHistoryManager.addItemToHistory(place);
+                if (historyManager != null) {
+                    historyManager.addItemToHistory(place);
                 }
             }
         });
@@ -146,11 +145,11 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
     @NonNull
     public AbstractPlacesAutocompleteAdapter getAutocompleteAdapter() {
-        return mAdapter;
+        return adapter;
     }
 
     public void setOnPlaceSelectedListener(@Nullable OnPlaceSelectedListener listener) {
-        mListener = listener;
+        this.listener = listener;
     }
 
     @Override
@@ -159,11 +158,11 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
             throw new IllegalArgumentException("Custom adapters must inherit from " + AbstractPlacesAutocompleteAdapter.class.getSimpleName());
         }
 
-        mAdapter = (AbstractPlacesAutocompleteAdapter) adapter;
+        this.adapter = (AbstractPlacesAutocompleteAdapter) adapter;
 
-        mHistoryManager = mAdapter.getHistoryManager();
-        mResultType = mAdapter.getResultType();
-        mApi = mAdapter.getApi();
+        historyManager = this.adapter.getHistoryManager();
+        resultType = this.adapter.getResultType();
+        api = this.adapter.getApi();
 
         super.setAdapter(adapter);
     }
@@ -194,7 +193,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         }
 
         try {
-            return adapterConstructor.newInstance(context, mApi, mResultType, mHistoryManager);
+            return adapterConstructor.newInstance(context, api, resultType, historyManager);
         } catch (InstantiationException e) {
             throw new InflateException("Unable to instantiate adapter with name " + adapterClass, e);
         } catch (IllegalAccessException e) {
@@ -205,17 +204,17 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     }
 
     public void setCompletionEnabled(boolean isEnabled) {
-        mIsCompletionEnabled = isEnabled;
+        completionEnabled = isEnabled;
     }
 
     @Override
     public boolean enoughToFilter() {
-        return mIsCompletionEnabled && (mHistoryManager != null || super.enoughToFilter());
+        return completionEnabled && (historyManager != null || super.enoughToFilter());
     }
 
     @Override
     public void performCompletion() {
-        if (!mIsCompletionEnabled) {
+        if (!completionEnabled) {
             return;
         }
 
@@ -239,35 +238,35 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
     @Nullable
     public Location getCurrentLocation() {
-        return mApi.getCurrentLocation();
+        return api.getCurrentLocation();
     }
 
     public void setCurrentLocation(@Nullable final Location currentLocation) {
-        mApi.setCurrentLocation(currentLocation);
+        api.setCurrentLocation(currentLocation);
     }
 
     @Nullable
     public Long getRadiusMeters() {
-        return mApi.getRadiusMeters();
+        return api.getRadiusMeters();
     }
 
     public void setRadiusMeters(final Long radiusMeters) {
-        mApi.setRadiusMeters(radiusMeters);
+        api.setRadiusMeters(radiusMeters);
     }
 
     public void setLocationBiasEnabled(boolean enabled) {
-        mApi.setLocationBiasEnabled(enabled);
+        api.setLocationBiasEnabled(enabled);
     }
 
     public boolean isLocationBiasEnabled() {
-        return mApi.isLocationBiasEnabled();
+        return api.isLocationBiasEnabled();
     }
 
     public void getDetailsFor(final Place place, final DetailsCallback callback) {
         BackgroundExecutorService.INSTANCE.enqueue(new BackgroundJob<PlaceDetails>() {
             @Override
             public PlaceDetails executeInBackground() throws Exception {
-                return mApi.details(place.place_id).result;
+                return api.details(place.place_id).result;
             }
 
             @Override
@@ -288,35 +287,35 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
     @NonNull
     public PlacesApi getApi() {
-        return mApi;
+        return api;
     }
 
     public void setApi(@NonNull PlacesApi api) {
-        mApi = api;
+        this.api = api;
 
-        mAdapter.setApi(api);
+        adapter.setApi(api);
     }
 
     @Nullable
     public AutocompleteHistoryManager getHistoryManager() {
-        return mHistoryManager;
+        return historyManager;
     }
 
     public void setHistoryManager(@Nullable final AutocompleteHistoryManager historyManager) {
-        mHistoryManager = historyManager;
+        this.historyManager = historyManager;
 
 
-        mAdapter.setHistoryManager(historyManager);
+        adapter.setHistoryManager(historyManager);
     }
 
     @Nullable
     public AutocompleteResultType getResultType() {
-        return mResultType;
+        return resultType;
     }
 
     public void setResultType(@Nullable AutocompleteResultType resultType) {
-        mResultType = resultType;
+        this.resultType = resultType;
 
-        mAdapter.setResultType(resultType);
+        adapter.setResultType(resultType);
     }
 }

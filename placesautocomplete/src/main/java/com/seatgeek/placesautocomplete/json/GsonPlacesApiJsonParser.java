@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
-    private final Gson mGson;
+    private final Gson gson;
 
     public GsonPlacesApiJsonParser() {
-        mGson = new GsonBuilder()
+        gson = new GsonBuilder()
             .create();
     }
 
@@ -28,7 +28,7 @@ class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
     public PlacesAutocompleteResponse autocompleteFromStream(final InputStream is)  throws JsonParsingException {
         try {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            return mGson.fromJson(reader, PlacesAutocompleteResponse.class);
+            return gson.fromJson(reader, PlacesAutocompleteResponse.class);
         } catch (Exception e) {
             throw new JsonParsingException(e);
         }
@@ -38,7 +38,7 @@ class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
     public PlacesDetailsResponse detailsFromStream(final InputStream is) throws JsonParsingException {
         try {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            return mGson.fromJson(reader, PlacesDetailsResponse.class);
+            return gson.fromJson(reader, PlacesDetailsResponse.class);
         } catch (Exception e) {
             throw new JsonParsingException(e);
         }
@@ -51,7 +51,7 @@ class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
             List<Place> places = new ArrayList<Place>();
             reader.beginArray();
             while (reader.hasNext()) {
-                Place message = mGson.fromJson(reader, Place.class);
+                Place message = gson.fromJson(reader, Place.class);
                 places.add(message);
             }
             reader.endArray();
@@ -69,7 +69,7 @@ class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
             writer.setIndent("  ");
             writer.beginArray();
             for (Place place : places) {
-                mGson.toJson(place, Place.class, writer);
+                gson.toJson(place, Place.class, writer);
             }
             writer.endArray();
             writer.close();

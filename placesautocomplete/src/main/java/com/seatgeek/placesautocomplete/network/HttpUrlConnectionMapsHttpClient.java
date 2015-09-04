@@ -54,6 +54,6 @@ class HttpUrlConnectionMapsHttpClient extends AbstractPlacesHttpClient {
     }
 
     private static <T extends PlacesApiResponse> boolean isErrorResponse(final T response, final Status status) {
-        return response == null || status == null || (status != null && !status.isSuccessful());
+        return response == null || status == null || !status.isSuccessful();
     }
 }

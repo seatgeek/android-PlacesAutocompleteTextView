@@ -10,13 +10,13 @@ import com.seatgeek.placesautocomplete.network.PlacesHttpClientResolver;
 public class PlacesApiBuilder {
 
     @Nullable
-    private PlacesHttpClient mApiClient;
+    private PlacesHttpClient apiClient;
 
     @Nullable
-    private String mGoogleApiKey;
+    private String googleApiKey;
 
     public PlacesApiBuilder setApiClient(@NonNull final PlacesHttpClient apiClient) {
-        mApiClient = apiClient;
+        this.apiClient = apiClient;
         return this;
     }
 
@@ -25,20 +25,20 @@ public class PlacesApiBuilder {
             throw new IllegalArgumentException("googleApiKey cannot be null or empty!");
         }
 
-        mGoogleApiKey = googleApiKey;
+        this.googleApiKey = googleApiKey;
         return this;
     }
 
     @NonNull
     public PlacesApi build() {
-        if (mApiClient == null) {
-            mApiClient = PlacesHttpClientResolver.PLACES_HTTP_CLIENT;
+        if (apiClient == null) {
+            apiClient = PlacesHttpClientResolver.PLACES_HTTP_CLIENT;
         }
 
-        if (mGoogleApiKey == null) {
+        if (googleApiKey == null) {
             throw new IllegalArgumentException("googleApiKey cannot be null when building " + PlacesApi.class.getSimpleName());
         }
 
-        return new PlacesApi(mApiClient, mGoogleApiKey);
+        return new PlacesApi(apiClient, googleApiKey);
     }
 }

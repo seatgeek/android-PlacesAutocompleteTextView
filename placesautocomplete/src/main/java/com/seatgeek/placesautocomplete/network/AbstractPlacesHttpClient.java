@@ -13,10 +13,10 @@ import java.io.InputStream;
 
 abstract class AbstractPlacesHttpClient implements PlacesHttpClient {
 
-    protected final PlacesApiJsonParser mPlacesApiJsonParser;
+    protected final PlacesApiJsonParser placesApiJsonParser;
 
     protected AbstractPlacesHttpClient(PlacesApiJsonParser parser) {
-        mPlacesApiJsonParser = parser;
+        placesApiJsonParser = parser;
     }
 
     @Override
@@ -25,7 +25,7 @@ abstract class AbstractPlacesHttpClient implements PlacesHttpClient {
 
             @Override
             public PlacesAutocompleteResponse handleStreamResult(final InputStream is) throws JsonParsingException {
-                return mPlacesApiJsonParser.autocompleteFromStream(is);
+                return placesApiJsonParser.autocompleteFromStream(is);
             }
         });
     }
@@ -36,7 +36,7 @@ abstract class AbstractPlacesHttpClient implements PlacesHttpClient {
 
             @Override
             public PlacesDetailsResponse handleStreamResult(final InputStream is) throws JsonParsingException {
-                return mPlacesApiJsonParser.detailsFromStream(is);
+                return placesApiJsonParser.detailsFromStream(is);
             }
         });
     }

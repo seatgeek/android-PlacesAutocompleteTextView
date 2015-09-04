@@ -9,11 +9,11 @@ import java.io.OutputStream;
 import java.util.List;
 
 public interface PlacesApiJsonParser {
-    public PlacesAutocompleteResponse autocompleteFromStream(InputStream is) throws JsonParsingException;
+    PlacesAutocompleteResponse autocompleteFromStream(InputStream is) throws JsonParsingException;
 
-    public PlacesDetailsResponse detailsFromStream(InputStream is) throws JsonParsingException;
+    PlacesDetailsResponse detailsFromStream(InputStream is) throws JsonParsingException;
 
-    public List<Place> readHistoryJson(InputStream in) throws JsonParsingException;
+    List<Place> readHistoryJson(InputStream in) throws JsonParsingException;
 
-    public void writeHistoryJson(OutputStream os, List<Place> places) throws JsonWritingException;
+    void writeHistoryJson(OutputStream os, List<Place> places) throws JsonWritingException;
 }

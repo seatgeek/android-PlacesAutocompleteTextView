@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
-    private final OkHttpClient mOkHttpClient;
+    private final OkHttpClient okHttpClient;
 
     OkHttpPlacesHttpClient(PlacesApiJsonParser parser) {
         super(parser);
-        mOkHttpClient = new OkHttpClient();
-        mOkHttpClient.setConnectTimeout(15L, TimeUnit.SECONDS);
-        mOkHttpClient.setReadTimeout(15L, TimeUnit.SECONDS);
-        mOkHttpClient.setWriteTimeout(15L, TimeUnit.SECONDS);
+        okHttpClient = new OkHttpClient();
+        okHttpClient.setConnectTimeout(15L, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(15L, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(15L, TimeUnit.SECONDS);
     }
 
     @Override
@@ -30,7 +30,7 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
                 .url(uri.toString())
                 .build();
 
-        Response response = mOkHttpClient.newCall(request).execute();
+        Response response = okHttpClient.newCall(request).execute();
 
         T body = responseHandler.handleStreamResult(response.body().byteStream());
 

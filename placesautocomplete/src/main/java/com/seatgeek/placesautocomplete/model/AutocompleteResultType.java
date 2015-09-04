@@ -8,14 +8,14 @@ public enum AutocompleteResultType {
     ADDRESS("address"),
     ESTABLISHMENT("establishment");
 
-    private final String mQueryParam;
+    private final String queryParam;
 
    AutocompleteResultType(final String queryParam) {
-        mQueryParam = queryParam;
+        this.queryParam = queryParam;
     }
 
     public String getQueryParam() {
-        return mQueryParam;
+        return queryParam;
     }
 
     public static AutocompleteResultType fromEnum(int enumerated) {

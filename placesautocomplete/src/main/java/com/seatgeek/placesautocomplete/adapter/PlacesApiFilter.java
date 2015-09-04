@@ -24,25 +24,25 @@ import java.util.List;
 
 public class PlacesApiFilter extends Filter {
     @NonNull
-    private PlacesApi mApi;
+    private PlacesApi api;
 
     @Nullable
-    private AutocompleteHistoryManager mHistoryManager;
+    private AutocompleteHistoryManager historyManager;
 
     @Nullable
-    private AutocompleteResultType mResultType;
+    private AutocompleteResultType resultType;
 
     @NonNull
-    private final ArrayAdapterDelegate<Place> mAdapterDelegate;
+    private final ArrayAdapterDelegate<Place> adapterDelegate;
 
     public PlacesApiFilter(@NonNull final PlacesApi api,
                            @Nullable final AutocompleteResultType resultType,
                            @Nullable final AutocompleteHistoryManager historyManager,
                            @NonNull final ArrayAdapterDelegate<Place> adapterDelegate) {
-        mApi = api;
-        mResultType = resultType;
-        mHistoryManager = historyManager;
-        mAdapterDelegate = adapterDelegate;
+        this.api = api;
+        this.resultType = resultType;
+        this.historyManager = historyManager;
+        this.adapterDelegate = adapterDelegate;
     }
 
     @Override
@@ -58,14 +58,14 @@ public class PlacesApiFilter extends Filter {
 
         final String finalStringConstraint = stringConstraint;
 
-        if (TextUtils.isEmpty(finalStringConstraint) && mHistoryManager == null) {
+        if (TextUtils.isEmpty(finalStringConstraint) && historyManager == null) {
             if (PlacesAutocompleteTextView.DEBUG) {
                 Log.w(Constants.LOG_TAG, "Autocomplete called with an empty string...");
             }
             filterResults.values = new ArrayList<Place>(0);
             filterResults.count = 0;
-        } else if ((TextUtils.isEmpty(finalStringConstraint) || history) && mHistoryManager != null) {
-            final List<Place> pastSelections = mHistoryManager.getPastSelections();
+        } else if ((TextUtils.isEmpty(finalStringConstraint) || history) && historyManager != null) {
+            final List<Place> pastSelections = historyManager.getPastSelections();
 
             sortHistory(finalStringConstraint, pastSelections, false);
 
@@ -73,7 +73,7 @@ public class PlacesApiFilter extends Filter {
             filterResults.count = pastSelections.size();
         } else {
             try {
-                final PlacesAutocompleteResponse response = mApi.autocomplete(finalStringConstraint, mResultType);
+                final PlacesAutocompleteResponse response = api.autocomplete(finalStringConstraint, resultType);
                 filterResults.values = response.predictions;
             } catch (final IOException e) {
                 if (PlacesAutocompleteTextView.DEBUG) {
@@ -83,7 +83,7 @@ public class PlacesApiFilter extends Filter {
                 filterResults.count = 0;
             }
 
-            final List<Place> pastSelections = mHistoryManager != null ? mHistoryManager.getPastSelections() : null;
+            final List<Place> pastSelections = historyManager != null ? historyManager.getPastSelections() : null;
             if (pastSelections != null && !pastSelections.isEmpty()) {
                 sortHistory(finalStringConstraint, pastSelections, true);
 
@@ -117,36 +117,36 @@ public class PlacesApiFilter extends Filter {
 
     @Override
     protected void publishResults(final CharSequence constraint, final FilterResults results) {
-        mAdapterDelegate.setNotifyOnChange(false);
-        mAdapterDelegate.clear();
-        mAdapterDelegate.addAll((Collection<Place>) results.values);
-        mAdapterDelegate.notifyDataSetChanged();
+        adapterDelegate.setNotifyOnChange(false);
+        adapterDelegate.clear();
+        adapterDelegate.addAll((Collection<Place>) results.values);
+        adapterDelegate.notifyDataSetChanged();
     }
 
     public void setApi(@NonNull final PlacesApi api) {
-        mApi = api;
+        this.api = api;
     }
 
     public void setHistoryManager(@Nullable final AutocompleteHistoryManager historyManager) {
-        mHistoryManager = historyManager;
+        this.historyManager = historyManager;
     }
 
     public void setResultType(@Nullable final AutocompleteResultType resultType) {
-        mResultType = resultType;
+        this.resultType = resultType;
     }
 
     @NonNull
     public PlacesApi getApi() {
-        return mApi;
+        return api;
     }
 
     @Nullable
     public AutocompleteHistoryManager getHistoryManager() {
-        return mHistoryManager;
+        return historyManager;
     }
 
     @Nullable
     public AutocompleteResultType getResultType() {
-        return mResultType;
+        return resultType;
     }
 }
