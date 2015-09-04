@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PlacesAutocompleteTextView">
+        <attr name="googleMapsApiKey" format="string"/>
+        <attr name="adapterClass" format="string"/>
+        <attr name="historyFile" format="string"/>
+        <attr name="resultType" format="enum">
+            <enum name="geocode" value="0"/>
+            <enum name="address" value="1"/>
+            <enum name="establishment" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <attr name="placesAutoCompleteTextViewStyle" format="reference"/>
+</resources>

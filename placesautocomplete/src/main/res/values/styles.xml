@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PACV.TextAppearance.PlacesAutoComplete" parent="android:TextAppearance">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="PACV.Widget.PlacesAutoCompleteTextView" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+        <item name="historyFile">@string/pac_default_history_file_name</item>
+        <item name="resultType">address</item>
+    </style>
+
+</resources>

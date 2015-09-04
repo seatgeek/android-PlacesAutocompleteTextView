@@ -1,0 +1,48 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# macosx
+.DS_Store
+
+# intellij/android studio
+target
+.idea
+*.iml
+gen-external-apklibs
+captures/
+
+# Don't include the default screenshot.png from build_apk
+screenshot.png
+
+# Crashlytics auto-generated strings
+com_crashlytics_export_strings.xml
+
+# Gradle
+build/
+api/build/
+android/build/
+.gradle
+
+# Cucumber
+screenshot_*.png
+test_servers/
+
+build
+
+# Proguard outputs
+android/config/mapping.txt
+android/config/seeds.txt
+android/config/unused.txt

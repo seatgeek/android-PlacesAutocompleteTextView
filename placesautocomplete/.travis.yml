@@ -1,0 +1,26 @@
+language: android
+android:
+  components:
+  - build-tools-21.1.2
+  - extra-android-m2repository
+  - extra-google-m2repository
+  - android-21
+jdk:
+- oraclejdk8
+before_install:
+- export TERM=dumb
+- chmod +x gradlew
+- ./gradlew -v
+- uname -a
+sudo: false
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+script:
+- ./gradlew clean :placesautocomplete:assemble :placesautocomplete:test
+after_success:
+- buildscripts/deploy_snapshot.sh
+env:
+  global:
+  - secure: Fa3NJP+/d5oRsJw3geK5CHN/G/hPCS8hJhA29y7iXmPT8M2n9Dz0vvaCJdAVcxMEFU/EWJAMpHHXhIoMuYQ+XkkY3whtkYuYfHVmJXTFv1whf1VyCvh5V62HL7clLFgbSUTEFkvPjJkerHVZ1/dYy5z3dyvxssarmlAc6RzdcgY=
+  - secure: IXb9RfZu1eiVWIY/0qbiLl8HC5cpl64nxCGCOhMWvasPF17f++jDr9WTXInAUIrU+AVzYELdQz8A9eg3J7JgXd/eWNirfmyaJGaF7ag1qitKv9lEiCzRlP3PCTWierZUzHZKEdVj6J76yvutuitkEADtYpfINniJUGa9yQ5BYl8=

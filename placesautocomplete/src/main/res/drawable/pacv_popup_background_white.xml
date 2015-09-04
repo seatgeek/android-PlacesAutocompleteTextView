@@ -1,0 +1,39 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- taken from appcompat material popup bg -->
+        <inset
+               android:insetLeft="16dp"
+               android:insetTop="16dp"
+               android:insetRight="16dp"
+               android:insetBottom="16dp">
+            <layer-list>
+                <item>
+                    <shape android:shape="rectangle">
+                        <corners android:radius="2dp"/>
+                        <solid android:color="#ffeeeeee"/>
+                    </shape>
+                </item>
+
+                <item>
+                    <inset
+                           android:insetTop="4dp"
+                           android:insetRight="4dp"
+                           android:insetBottom="4dp">
+                        <bitmap
+                            android:src="@drawable/powered_by_google_on_white"
+                            android:antialias="true"
+                            android:gravity="bottom|right"/>
+                    </inset>
+                </item>
+            </layer-list>
+        </inset>
+    </item>
+
+    <item>
+        <shape>
+            <padding android:bottom="8dp"/>
+            <solid android:color="#00000000"/>
+        </shape>
+    </item>
+
+</layer-list>
