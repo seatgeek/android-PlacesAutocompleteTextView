@@ -17,7 +17,7 @@ cache:
   directories:
   - $HOME/.gradle/caches/
 script:
-- ./gradlew clean :android-placesautocompletetextview:assemble :android-placesautocompletetextview:test
+- ./gradlew clean :placesautocomplete:assemble :placesautocomplete:test
 after_success:
 - buildscripts/deploy_snapshot.sh
 env:
