@@ -13,9 +13,6 @@ buildscript {
 apply plugin: 'com.android.library'
 apply plugin: 'com.bmuschko.nexus'
 
-group = GROUP
-version = VERSION_NAME
-
 repositories {
     jcenter()
 }
@@ -27,8 +24,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
     }
 
     buildTypes {
