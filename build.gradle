@@ -1,18 +1,4 @@
 allprojects {
-    buildscript {
-        repositories {
-            mavenCentral()
-            jcenter()
-        }
-    }
-
-    dependencies {
-        repositories {
-            mavenCentral()
-            jcenter()
-        }
-    }
-
     group = GROUP
     version = VERSION_NAME
 }
