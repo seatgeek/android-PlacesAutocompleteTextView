@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:${ANDROID_PLUGIN_VERSION}"
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        applicationId  "${GROUP}.placesautocompletedemo"
+        minSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
+        targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    compile project(':placesautocomplete')
+}

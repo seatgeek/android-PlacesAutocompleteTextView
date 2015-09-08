@@ -1,1 +1,2 @@
-include ':placesautocomplete'
+include ':placesautocomplete',
+        ':demo-app'
