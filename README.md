@@ -40,6 +40,7 @@ to your layout xml:
 _Note: you can treat the `PlacesAutocompleteTextView` the same as any `AutocompleteTextView`
 since it extends from the framework `AutocompleteTextView`. This means you can use
 custom styles with all the standard view properties._
+
 0. Finally, you'll likely want a listener in your UI to know when the user has
 selected an item from the dropdown:
 ```java
