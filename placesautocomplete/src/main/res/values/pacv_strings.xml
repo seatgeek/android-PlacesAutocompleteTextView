@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pacv_default_history_file_name">history.json</string>
+    <string name="pacv_default_history_file_name">pacv_history.json</string>
 </resources>

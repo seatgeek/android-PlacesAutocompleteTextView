@@ -21,6 +21,7 @@ import com.seatgeek.placesautocomplete.adapter.DefaultAutocompleteAdapter;
 import com.seatgeek.placesautocomplete.async.BackgroundExecutorService;
 import com.seatgeek.placesautocomplete.async.BackgroundJob;
 import com.seatgeek.placesautocomplete.history.AutocompleteHistoryManager;
+import com.seatgeek.placesautocomplete.history.DefaultAutocompleteHistoryManager;
 import com.seatgeek.placesautocomplete.model.AutocompleteResultType;
 import com.seatgeek.placesautocomplete.model.Place;
 import com.seatgeek.placesautocomplete.model.PlaceDetails;
@@ -93,7 +94,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         final String finalHistoryFileName = historyFileName != null ? historyFileName : layoutHistoryFile;
 
         if (!TextUtils.isEmpty(finalHistoryFileName)) {
-            historyManager = AutocompleteHistoryManager.fromPath(context, finalHistoryFileName);
+            historyManager = DefaultAutocompleteHistoryManager.fromPath(context, finalHistoryFileName);
         }
 
         final String finalApiKey = googleApiKey != null ? googleApiKey : layoutApiKey;
@@ -179,7 +180,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
         Constructor<AbstractPlacesAutocompleteAdapter> adapterConstructor = null;
         try {
-            adapterConstructor = adapterClazz.getConstructor(Context.class, PlacesApi.class, AutocompleteResultType.class, AutocompleteHistoryManager.class);
+            adapterConstructor = adapterClazz.getConstructor(Context.class, PlacesApi.class, AutocompleteResultType.class, DefaultAutocompleteHistoryManager.class);
         } catch (NoSuchMethodException e) {
             throw new InflateException("Unable to find valid constructor with params " +
                     Context.class.getSimpleName() +
@@ -188,7 +189,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
                     ", " +
                     AutocompleteResultType.class.getSimpleName() +
                     ", and " +
-                    AutocompleteHistoryManager.class.getSimpleName() +
+                    DefaultAutocompleteHistoryManager.class.getSimpleName() +
                     " for specified adapterClass: " + adapterClass, e);
         }
 
