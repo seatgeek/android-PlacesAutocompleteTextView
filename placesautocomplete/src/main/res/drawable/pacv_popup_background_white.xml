@@ -20,7 +20,7 @@
                            android:insetRight="4dp"
                            android:insetBottom="4dp">
                         <bitmap
-                            android:src="@drawable/powered_by_google_on_white"
+                            android:src="@drawable/pacv_powered_by_google_on_white"
                             android:antialias="true"
                             android:gravity="bottom|right"/>
                     </inset>

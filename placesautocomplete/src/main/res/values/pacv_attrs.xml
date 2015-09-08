@@ -2,15 +2,15 @@
 <resources>
 
     <declare-styleable name="PlacesAutocompleteTextView">
-        <attr name="googleMapsApiKey" format="string"/>
-        <attr name="adapterClass" format="string"/>
-        <attr name="historyFile" format="string"/>
-        <attr name="resultType" format="enum">
+        <attr name="pacv_googleMapsApiKey" format="string"/>
+        <attr name="pacv_adapterClass" format="string"/>
+        <attr name="pacv_historyFile" format="string"/>
+        <attr name="pacv_resultType" format="enum">
             <enum name="geocode" value="0"/>
             <enum name="address" value="1"/>
             <enum name="establishment" value="2"/>
         </attr>
     </declare-styleable>
 
-    <attr name="placesAutoCompleteTextViewStyle" format="reference"/>
+    <attr name="pacv_placesAutoCompleteTextViewStyle" format="reference"/>
 </resources>

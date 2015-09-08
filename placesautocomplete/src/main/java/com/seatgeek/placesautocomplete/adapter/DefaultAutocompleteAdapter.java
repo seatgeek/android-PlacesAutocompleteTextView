@@ -20,7 +20,7 @@ public class DefaultAutocompleteAdapter extends AbstractPlacesAutocompleteAdapte
 
     @Override
     protected View newView(final ViewGroup parent) {
-        return LayoutInflater.from(parent.getContext()).inflate(R.layout.pac_maps_autocomplete_item, parent, false);
+        return LayoutInflater.from(parent.getContext()).inflate(R.layout.pacv_maps_autocomplete_item, parent, false);
     }
 
     @Override

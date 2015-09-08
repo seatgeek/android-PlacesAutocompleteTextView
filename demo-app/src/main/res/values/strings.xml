@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PlacesAutocompleteDemo</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- DO NOT USE THIS KEY IN YOUR APP. THIS IS A DEMO KEY AND IS RATE LIMITED -->
+    <!-- CREATE A NEW KEY ON THE GOOGLE API CONSOLE FOR YOUR APPLICATION -->
+    <string name="google_maps_api_key">AIzaSyDIoyl48T6r8uVOLSmKJHoCAYVKe7ydaU8</string>
 </resources>

@@ -6,8 +6,8 @@
     </style>
 
     <style name="PACV.Widget.PlacesAutoCompleteTextView" parent="android:Widget.Holo.Light.AutoCompleteTextView">
-        <item name="historyFile">@string/pac_default_history_file_name</item>
-        <item name="resultType">address</item>
+        <item name="pacv_historyFile">@string/pacv_default_history_file_name</item>
+        <item name="pacv_resultType">address</item>
     </style>
 
 </resources>

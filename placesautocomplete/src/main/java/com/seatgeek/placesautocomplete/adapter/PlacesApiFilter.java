@@ -76,9 +76,7 @@ public class PlacesApiFilter extends Filter {
                 final PlacesAutocompleteResponse response = api.autocomplete(finalStringConstraint, resultType);
                 filterResults.values = response.predictions;
             } catch (final IOException e) {
-                if (PlacesAutocompleteTextView.DEBUG) {
-                    Log.e(Constants.LOG_TAG, "Unable to fetch autocomplete results from the api", e);
-                }
+                Log.e(Constants.LOG_TAG, "Unable to fetch autocomplete results from the api", e);
                 filterResults.values = new ArrayList<Place>(0);
                 filterResults.count = 0;
             }

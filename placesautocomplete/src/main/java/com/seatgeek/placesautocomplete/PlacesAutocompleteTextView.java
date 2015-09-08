@@ -31,7 +31,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     @Nullable
     private AutocompleteResultType resultType;
@@ -53,41 +53,41 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     public PlacesAutocompleteTextView(@NonNull final Context context, @NonNull final String googleApiKey) {
         super(context);
 
-        init(context, null, R.attr.placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, context.getString(R.string.pac_default_history_file_name));
+        init(context, null, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, context.getString(R.string.pacv_default_history_file_name));
     }
 
 
     public PlacesAutocompleteTextView(@NonNull final Context context, @NonNull final String googleApiKey, @NonNull final String historyFileName) {
         super(context);
 
-        init(context, null, R.attr.placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, historyFileName);
+        init(context, null, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, historyFileName);
     }
 
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
-        init(context, attrs, R.attr.placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pac_default_history_file_name));
+        init(context, attrs, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defAttr) {
         super(context, attrs, defAttr);
 
-        init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pac_default_history_file_name));
+        init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        init(context, attrs, defStyleAttr, defStyleRes, null, context.getString(R.string.pac_default_history_file_name));
+        init(context, attrs, defStyleAttr, defStyleRes, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
     private void init(@NonNull final Context context, final AttributeSet attrs, final int defAttr, final int defStyle, final String googleApiKey, final String historyFileName) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PlacesAutocompleteTextView, defAttr, defStyle);
-        String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_googleMapsApiKey);
-        String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_adapterClass);
-        String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_historyFile);
-        resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
+        String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_googleMapsApiKey);
+        String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_adapterClass);
+        String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_historyFile);
+        resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_pacv_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
         typedArray.recycle();
 
         final String finalHistoryFileName = historyFileName != null ? historyFileName : layoutHistoryFile;

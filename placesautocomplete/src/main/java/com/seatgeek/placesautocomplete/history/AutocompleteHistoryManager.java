@@ -16,6 +16,7 @@ import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.model.Place;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,6 +64,10 @@ public class AutocompleteHistoryManager {
         BackgroundExecutorService.INSTANCE.enqueue(new BackgroundJob<List<Place>>() {
             @Override
             public List<Place> executeInBackground() throws Exception {
+                if (!savedFile.getBaseFile().exists()) {
+                    throw new FileNotFoundException("History file does not exist");
+                }
+
                 InputStream is = null;
                 try {
                     is = savedFile.openRead();
