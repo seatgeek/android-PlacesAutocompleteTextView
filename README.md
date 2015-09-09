@@ -29,7 +29,7 @@ dependencies {
 3. Once you have your key, you're ready to add the `PlacesAutocompleteTextView` to your layout xml:
 
     ```xml
-            <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
+   <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
        android:id="@+id/places_autocomplete"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
@@ -38,7 +38,7 @@ dependencies {
 4. Finally, you'll likely want a listener in your UI to know when the user has selected an item from the dropdown:
 
     ```java
-            placesAutocomplete.setOnPlaceSelectedListener(
+   placesAutocomplete.setOnPlaceSelectedListener(
            new OnPlaceSelectedListener() {
                @Override
                public void onPlaceSelected(final Place place) {
