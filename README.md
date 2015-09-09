@@ -24,12 +24,9 @@ dependencies {
 
 ### Basic setup and usage
 
-1. You'll need a Google API key for you application. There are instructions on
-how to set up your API's project and generate a key [here](http://todo.com)
-2. You application will need the `android.permission.INTERNET` permission in its
-manifest for the View to interact with the Google Maps API
-3. Once you have your key, you're ready to add the `PlacesAutocompleteTextView`
-to your layout xml:
+1. You'll need a Google API key for you application. There are instructions on how to set up your API's project and generate a key [here](http://todo.com)
+2. You application will need the `android.permission.INTERNET` permission in its manifest for the View to interact with the Google Maps API
+3. Once you have your key, you're ready to add the `PlacesAutocompleteTextView` to your layout xml:
 ```xml
 <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
        android:id="@+id/places_autocomplete"
@@ -37,10 +34,6 @@ to your layout xml:
        android:layout_height="wrap_content"
        app:pacv_googleMapsApiKey="<YOUR_GOOGLE_API_KEY>"/>
 ```
-_Note: you can treat the `PlacesAutocompleteTextView` the same as any `AutocompleteTextView`
-since it extends from the framework `AutocompleteTextView`. This means you can use
-custom styles with all the standard view properties._
-
 4. Finally, you'll likely want a listener in your UI to know when the user has
 selected an item from the dropdown:
 ```java
@@ -54,6 +47,10 @@ selected an item from the dropdown:
   );
 ```
 5. That's it!
+
+_Note: you can treat the `PlacesAutocompleteTextView` the same as any `AutocompleteTextView`
+as it extends from the framework `AutocompleteTextView`. This means you can use
+custom styles with all the standard view properties._
 
 ### Advanced usage/customization
 
