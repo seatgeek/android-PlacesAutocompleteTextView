@@ -27,25 +27,20 @@ dependencies {
 1. You'll need a Google API key for you application. There are instructions on how to set up your API's project and generate a key [here](http://todo.com)
 2. You application will need the `android.permission.INTERNET` permission in its manifest for the View to interact with the Google Maps API
 3. Once you have your key, you're ready to add the `PlacesAutocompleteTextView` to your layout xml:
-```xml
-<com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
-       android:id="@+id/places_autocomplete"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:pacv_googleMapsApiKey="<YOUR_GOOGLE_API_KEY>"/>
-```
-4. Finally, you'll likely want a listener in your UI to know when the user has
-selected an item from the dropdown:
-```java
-  placesAutocomplete.setOnPlaceSelectedListener(
-          new OnPlaceSelectedListener() {
-               @Override
-               public void onPlaceSelected(final Place place) {
-                   // do something awesome with the selected place
-               }
-          }
-  );
-```
+        <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
+            android:id="@+id/places_autocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:pacv_googleMapsApiKey="<YOUR_GOOGLE_API_KEY>"/>
+4. Finally, you'll likely want a listener in your UI to know when the user has selected an item from the dropdown:
+        placesAutocomplete.setOnPlaceSelectedListener(
+            new OnPlaceSelectedListener() {
+                @Override
+                public void onPlaceSelected(final Place place) {
+                    // do something awesome with the selected place
+                }
+            }
+        );
 5. That's it!
 
 _Note: you can treat the `PlacesAutocompleteTextView` the same as any `AutocompleteTextView`
