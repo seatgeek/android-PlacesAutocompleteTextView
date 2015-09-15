@@ -51,31 +51,45 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
 
     private boolean completionEnabled = true;
 
+    /**
+     * Creates a new PlacesAutocompleteTextView with the provided API key and the default history file
+     */
     public PlacesAutocompleteTextView(@NonNull final Context context, @NonNull final String googleApiKey) {
         super(context);
 
         init(context, null, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, context.getString(R.string.pacv_default_history_file_name));
     }
 
-
+    /**
+     * Creates a new PlacesAutocompleteTextView with the provided API key and the provided history file
+     */
     public PlacesAutocompleteTextView(@NonNull final Context context, @NonNull final String googleApiKey, @NonNull final String historyFileName) {
         super(context);
 
         init(context, null, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, googleApiKey, historyFileName);
     }
 
+    /**
+     * Constructor for layout inflation
+     */
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs) {
         super(context, attrs);
 
         init(context, attrs, R.attr.pacv_placesAutoCompleteTextViewStyle, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
+    /**
+     * Constructor for layout inflation
+     */
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defAttr) {
         super(context, attrs, defAttr);
 
         init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
+    /**
+     * Constructor for layout inflation
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -83,6 +97,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         init(context, attrs, defStyleAttr, defStyleRes, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
+    // perform basic initialization of the view by fetching layout attributes and creating the api, etc.
     private void init(@NonNull final Context context, final AttributeSet attrs, final int defAttr, final int defStyle, final String googleApiKey, final String historyFileName) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PlacesAutocompleteTextView, defAttr, defStyle);
         String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_googleMapsApiKey);
@@ -134,25 +149,42 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         super.setDropDownBackgroundResource(R.drawable.pacv_popup_background_white);
     }
 
+    /**
+     * DO NOT USE. Prefer {@link #setOnPlaceSelectedListener} instead
+     */
     @Override
     public final void setOnItemSelectedListener(final AdapterView.OnItemSelectedListener l) {
         throw new UnsupportedOperationException("Use set" + OnPlaceSelectedListener.class.getSimpleName() + "() instead");
     }
 
+    /**
+     * DO NOT USE. Prefer {@link #setOnPlaceSelectedListener} instead
+     */
     @Override
     public final void setOnItemClickListener(final AdapterView.OnItemClickListener l) {
         throw new UnsupportedOperationException("Use set" + OnPlaceSelectedListener.class.getSimpleName() + "() instead");
     }
 
+    /**
+     * Registers a listener for callbacks when a new {@link Place} is selected from the autocomplete
+     * popup
+     */
+    public void setOnPlaceSelectedListener(@Nullable OnPlaceSelectedListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * @return the current adapter for displaying the list of results in the popup window
+     */
     @NonNull
     public AbstractPlacesAutocompleteAdapter getAutocompleteAdapter() {
         return adapter;
     }
 
-    public void setOnPlaceSelectedListener(@Nullable OnPlaceSelectedListener listener) {
-        this.listener = listener;
-    }
-
+    /**
+     * @param adapter the adapter for displaying the list of results in the popup window, must
+     *                extend {@link AbstractPlacesAutocompleteAdapter} to maintain certain logic
+     */
     @Override
     public final <T extends ListAdapter & Filterable> void setAdapter(@NonNull final T adapter) {
         if (!(adapter instanceof AbstractPlacesAutocompleteAdapter)) {
@@ -168,6 +200,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         super.setAdapter(adapter);
     }
 
+    // fun way to set adapters as layout attributes
     private AbstractPlacesAutocompleteAdapter adapterForClass(final Context context, final String adapterClass) {
         Class<AbstractPlacesAutocompleteAdapter> adapterClazz;
         try {
@@ -204,6 +237,10 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         }
     }
 
+    /**
+     * Controls the autocompletion feature.
+     * @param isEnabled if false, no autocompletion will occur. Default is true
+     */
     public void setCompletionEnabled(boolean isEnabled) {
         completionEnabled = isEnabled;
     }
@@ -237,32 +274,63 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         return ((Place) selectedItem).description;
     }
 
+    /**
+     * @return the current location in use for location biasing. By default, biasing uses geoip
+     */
     @Nullable
     public Location getCurrentLocation() {
         return api.getCurrentLocation();
     }
 
+    /**
+     * Sets the location that will be used for biasing the Place results. The API will favor Places
+     * close to the set location when producing results
+     * @param currentLocation the Location to bias results towards
+     */
     public void setCurrentLocation(@Nullable final Location currentLocation) {
         api.setCurrentLocation(currentLocation);
     }
 
+    /**
+     * @return the radius, in meters.
+     */
     @Nullable
     public Long getRadiusMeters() {
         return api.getRadiusMeters();
     }
 
+    /**
+     * @param radiusMeters  The radius from the provided location to bias results with. By default,
+     *                      the Places API biases with x meters. To disable
+     *                      the bias radius but maintain the biasing, use the
+     *                      {@link PlacesApi#NO_BIAS_RADIUS}
+     */
     public void setRadiusMeters(final Long radiusMeters) {
         api.setRadiusMeters(radiusMeters);
     }
 
+    /**
+     * Allows for enabling and disabling location biasing in the Places api.
+     * @param enabled is biasing should be enabled. true by default.
+     */
     public void setLocationBiasEnabled(boolean enabled) {
         api.setLocationBiasEnabled(enabled);
     }
 
+    /**
+     * @return if the Places API is currently going to return results biased to the device's current
+     * location
+     */
     public boolean isLocationBiasEnabled() {
         return api.isLocationBiasEnabled();
     }
 
+    /**
+     * A helper method for fetching the {@link PlaceDetails} from the PlacesApi
+     * @param place the place to get details for
+     * @param callback a callback that will be invoked on the main thread when the place details
+     *                 has been fetched from the Places API
+     */
     public void getDetailsFor(final Place place, final DetailsCallback callback) {
         BackgroundExecutorService.INSTANCE.enqueue(new BackgroundJob<PlaceDetails>() {
             @Override
@@ -286,34 +354,59 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         });
     }
 
+    /**
+     * @return the {@link PlacesApi} that the Autocomplete view is using to fetch results from the
+     * Google Maps Places API. You can use this to make custom requests to the API, if you so choose.
+     */
     @NonNull
     public PlacesApi getApi() {
         return api;
     }
 
+    /**
+     * A setter for the {@link PlacesApi} that the Autocomplete view will use to fetch results from the
+     * Google Maps Places API. You can provide your own customizations build creating your own API.
+     * @param api the API to use for autocompletion and place details requests
+     */
     public void setApi(@NonNull PlacesApi api) {
         this.api = api;
 
         adapter.setApi(api);
     }
 
+    /**
+     * @return the current AutocompleteHistoryManager that stores and provides the selection history
+     * for Places in the Autocomplete view
+     */
     @Nullable
     public AutocompleteHistoryManager getHistoryManager() {
         return historyManager;
     }
 
+    /**
+     * Allows for passing your own implementation of the AutocompleteHistoryManager. This would be
+     * if you wanted to provide your own storage mechanism (e.g. sqlite, shared prefs, etc.) for
+     * whatever reasoning you'd want.
+     * @param historyManager The new history manager for managing the storage of selected Places for
+     *                       later autocompletion use. Setting this to null will disable history
+     */
     public void setHistoryManager(@Nullable final AutocompleteHistoryManager historyManager) {
         this.historyManager = historyManager;
-
 
         adapter.setHistoryManager(historyManager);
     }
 
+    /**
+     * @return the current result type for autocompletion results
+     */
     @Nullable
     public AutocompleteResultType getResultType() {
         return resultType;
     }
 
+    /**
+     * @param resultType the result type to determine the types of Places returned by the Places API
+     */
     public void setResultType(@Nullable AutocompleteResultType resultType) {
         this.resultType = resultType;
 

@@ -13,6 +13,10 @@ import com.seatgeek.placesautocomplete.util.LocationUtils;
 
 import java.io.IOException;
 
+/**
+ * An Abstraction for the Google Maps Places API. Manages the building of requests to the API and
+ * executing them using the provided {@link PlacesHttpClient}
+ */
 public class PlacesApi {
     public static final AutocompleteResultType DEFAULT_RESULT_TYPE = AutocompleteResultType.ADDRESS;
 
@@ -55,31 +59,65 @@ public class PlacesApi {
         this.googleApiKey = googleApiKey;
     }
 
+    /**
+     * @return if the Places API is currently going to return results biased to the device's current
+     * location
+     */
     public boolean isLocationBiasEnabled() {
         return locationBiasEnabled;
     }
 
+    /**
+     * Allows for enabling and disabling location biasing in the Places api.
+     *
+     * @param enabled is biasing should be enabled. true by default.
+     */
     public void setLocationBiasEnabled(boolean enabled) {
         locationBiasEnabled = enabled;
     }
 
+    /**
+     * @return the radius, in meters.
+     */
     public Long getRadiusMeters() {
         return radiusM;
     }
 
+    /**
+     * @param radiusM The radius from the provided location to bias results with. By default,
+     *                     the Places API biases with x meters. To disable
+     *                     the bias radius but maintain the biasing, use the
+     *                     {@link PlacesApi#NO_BIAS_RADIUS}
+     */
     public void setRadiusMeters(final Long radiusM) {
         this.radiusM = radiusM;
     }
 
+    /**
+     * @return the current location in use for location biasing. By default, biasing uses geoip
+     */
     @Nullable
     public Location getCurrentLocation() {
         return currentLocation;
     }
 
+    /**
+     * Sets the location that will be used for biasing the Place results. The API will favor Places
+     * close to the set location when producing results
+     *
+     * @param currentLocation the Location to bias results towards
+     */
     public void setCurrentLocation(@Nullable final Location currentLocation) {
         this.currentLocation = currentLocation;
     }
 
+    /**
+     * Performs autocompletion for the given input text and the type of response desired. This is a
+     * synchronous call, you must provide your own Async if you need it
+     * @param input the textual input that will be autocompleted
+     * @param type the response type from the api
+     * @throws IOException
+     */
     public PlacesAutocompleteResponse autocomplete(final String input, final AutocompleteResultType type) throws IOException {
         final String finalInput = input == null ? "" : input;
 
@@ -109,6 +147,13 @@ public class PlacesApi {
         return httpClient.executeAutocompleteRequest(uriBuilder.build());
     }
 
+    /**
+     * Fetches the PlaceDetails for the given place_id. This is a
+     * synchronous call, you must provide your own Async if you need it
+     * @param placeId the Google Maps Places API Place ID for the place you desire details of
+     * @return the details for the place id
+     * @throws IOException
+     */
     public PlacesDetailsResponse details(final String placeId) throws IOException {
         Uri.Builder uriBuilder = Uri.parse(PLACES_API_BASE)
                 .buildUpon()

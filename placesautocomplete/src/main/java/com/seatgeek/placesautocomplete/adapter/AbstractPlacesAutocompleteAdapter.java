@@ -16,6 +16,11 @@ import com.seatgeek.placesautocomplete.util.ArrayAdapterDelegate;
 
 import java.util.Collection;
 
+/**
+ * Base class for Adapters for the PlacesAutocompleteTextView. Provides the logic for fetching the
+ * autocomplete results using the Adapter's filtering mechanism. Can provide your own implementation
+ * to provide a different row view for the place.
+ */
 public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Place> {
 
     @NonNull
@@ -67,8 +72,18 @@ public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Pla
         return view;
     }
 
+    /**
+     * Creates a new view for a Place
+     * @param parent the parent view, used for inflating
+     * @return the row view for the item in the adapter
+     */
     protected abstract View newView(final ViewGroup parent);
 
+    /**
+     * Binds a place to a given view
+     * @param view the view to bind to
+     * @param item the place that should be bound to the view
+     */
     protected abstract void bindView(final View view, final Place item);
 
     @Override
@@ -77,14 +92,25 @@ public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Pla
         return mFilter;
     }
 
+    /**
+     * @param api the instance of the PlacesApi to use for autocompletion requests
+     */
     public void setApi(@NonNull final PlacesApi api) {
         mFilter.setApi(api);
     }
 
+    /**
+     * @param historyManager the history manager to use for adding items to history and fetching
+     *                       past selection results
+     */
     public void setHistoryManager(@Nullable final AutocompleteHistoryManager historyManager) {
         mFilter.setHistoryManager(historyManager);
     }
 
+    /**
+     * @param resultType sets the result type used when requesting autocomplete results from the
+     *                   Places API
+     */
     public void setResultType(@Nullable final AutocompleteResultType resultType) {
         mFilter.setResultType(resultType);
     }

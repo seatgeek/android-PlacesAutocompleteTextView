@@ -1,7 +1,7 @@
 package com.seatgeek.placesautocomplete.network;
 
-import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.json.JsonParserResolver;
+import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 
 public final class PlacesHttpClientResolver {
     public static final PlacesHttpClient PLACES_HTTP_CLIENT;

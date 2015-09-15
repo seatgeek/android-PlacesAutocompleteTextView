@@ -4,8 +4,17 @@ package com.seatgeek.placesautocomplete.model;
  * Corresponds to GoogleMapsPlacesAutoCompleteTextView attribute resultType
  */
 public enum AutocompleteResultType {
+    /**
+     * Any location
+     */
     GEOCODE("geocode"),
+    /**
+     * Any location represented by a full postal address
+     */
     ADDRESS("address"),
+    /**
+     * Any location represented by a full postal address that is a business establishment
+     */
     ESTABLISHMENT("establishment");
 
     private final String queryParam;
