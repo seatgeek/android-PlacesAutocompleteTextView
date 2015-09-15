@@ -67,7 +67,7 @@ There are a few XML properties that can control some of the functionality of the
 xml property | java method | description
 --- | --- | ---
 `pacv_historyFile` | `setHistoryManager()` | By default, the `PlacesAutocompleteTextView` will save the history of the selected `Place`'s in a file on the file system. This is great for cases when your user may be typing in the same address in different parts of your UI or across different sessions. If you'd like to simply change the location of the file on the filesystem, you can specify the path string here. By default, the file is stored in the application cache dir under `autocomplete/pacv_history.json`. If this is a feature that you'd like to disable, you can set the property in xml to `@null` or call `setHistoryManager(null)`.
-`pacv_resultType` | `setResultType()` | The Places API can return various types of `Place`s depending on what your application is looking to allow the user to select. By default, the `PlacesAutocompleteTextView` only requests items of type `address`, which returns locations associated with a full postal address, public or residential. You can change this to also be `geocode` for blah or `establishment` for non-resitential locations
+`pacv_resultType` | `setResultType()` | The Places API can return various types of `Place`s depending on what your application is looking to allow the user to select. By default, the `PlacesAutocompleteTextView` only requests items of type `address`, which returns locations associated with a full postal address, public or residential. You can change this to also be `geocode` for any address or `establishment` for non-residential addresses
 `pacv_adapterClass` | `setAdapter()` | If you don't like the default `Adapter` for displaying the items in the dropdown list (it is pretty basic by default), you can override it by specifying your own in xml (by passing the fully-qualified classname) or using `setAdapter()`. An important note: because of how the filtering functionality works in the `PlacesAutocompleteTextView`, your custom adapter must extend `AbstractPlacesAutocompleteAdapter`.
 
 #### Need more details? `PlaceDetails`
@@ -114,7 +114,7 @@ get the default style's parameters, e.g.:
 #### Location biasing
 
 A common thing that you might want to do is bias the place results to the location of the user. 
-By default, the `PlacesAutocompleteTextView` will bias the results by a geopip lookup of 
+By default, the `PlacesAutocompleteTextView` will bias the results by a geoip lookup of 
 the device's IP address. If your app has different requirements for where you want to bias the 
 address results to or you want more accuracy than a geoip lookup, you can pass an Android 
 `Location` into the `PlacesAutocompleteTextView` using the `#setCurrentLocation()` method.
