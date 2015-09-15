@@ -1,6 +1,6 @@
-# android-placesautocompletetextview
+# android-PlacesAutocompleteTextView
 
-[![Build Status](https://magnum.travis-ci.com/seatgeek/android-placesautocompletetextview.svg?token=ycL4XWSrwx9ci6onAtBb)](https://magnum.travis-ci.com/seatgeek/android-placesautocompletetextview)
+[![Build Status](https://magnum.travis-ci.com/seatgeek/android-PlacesAutocompleteTextView.svg?token=ycL4XWSrwx9ci6onAtBb)](https://magnum.travis-ci.com/seatgeek/android-PlacesAutocompleteTextView)
 
 An AutocompleteTextView that interacts with the [Google Maps Places API](https://developers.google.com/places/web-service/autocomplete) 
 to provide location results and caches selected results in a history file for later use
@@ -145,7 +145,7 @@ reason that this project is still alive and hasn't migrated to Google Play Servi
 0. Submit a Pull Request through Github's interface and a project maintainer will
 decide your change's fate.
 
-_Note: issues can be submitted via [github issues](https://github.com/seatgeek/android-placesautocompletetextview/issues/new)_
+_Note: issues can be submitted via [github issues](https://github.com/seatgeek/android-PlacesAutocompleteTextView/issues/new)_
 
 ### License
 
