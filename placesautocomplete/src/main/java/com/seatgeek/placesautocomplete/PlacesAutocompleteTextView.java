@@ -211,9 +211,9 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
             throw new InflateException(adapterClass + " must inherit from " + AbstractPlacesAutocompleteAdapter.class.getSimpleName(), e);
         }
 
-        Constructor<AbstractPlacesAutocompleteAdapter> adapterConstructor = null;
+        Constructor<AbstractPlacesAutocompleteAdapter> adapterConstructor;
         try {
-            adapterConstructor = adapterClazz.getConstructor(Context.class, PlacesApi.class, AutocompleteResultType.class, DefaultAutocompleteHistoryManager.class);
+            adapterConstructor = adapterClazz.getConstructor(Context.class, PlacesApi.class, AutocompleteResultType.class, AutocompleteHistoryManager.class);
         } catch (NoSuchMethodException e) {
             throw new InflateException("Unable to find valid constructor with params " +
                     Context.class.getSimpleName() +
