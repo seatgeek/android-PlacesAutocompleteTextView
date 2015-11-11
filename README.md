@@ -24,9 +24,7 @@ dependencies {
 
 ### Basic setup and usage
 
-1. You'll need a Google API key for you application. There are instructions on how to set up your 
-[here](https://developers.google.com/maps/documentation/android-api/signup#create_an_api_project_in_the_console_name)
-API's project and generate a key 
+1. You'll need a Google API key for you application. There are instructions on how to set up your API project and generate a key [here](https://developers.google.com/maps/documentation/android-api/signup#create_an_api_project_in_the_console_name)
 
 2. Your application will need the `android.permission.INTERNET` permission in its manifest for the 
 View to interact with the Google Maps API
