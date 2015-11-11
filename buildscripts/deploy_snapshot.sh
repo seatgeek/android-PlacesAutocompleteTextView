@@ -6,7 +6,7 @@
 # http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/ and
 # https://github.com/JakeWharton/butterknife/blob/master/.buildscript/deploy_snapshot.sh
 
-SLUG="seatgeek/android-placesautocompletetextview"
+SLUG="seatgeek/android-PlacesAutocompleteTextView"
 JDK="oraclejdk8"
 BRANCH="master"
 
