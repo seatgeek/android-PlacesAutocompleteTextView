@@ -1,6 +1,6 @@
 # android-PlacesAutocompleteTextView
 
-[![Build Status](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView.svg)](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView)
+[![Build Status](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView.svg)](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PlacesAutocompleteTextView-green.svg?style=true)](https://android-arsenal.com/details/1/2777)
 
 An AutocompleteTextView that interacts with the [Google Maps Places API](https://developers.google.com/places/web-service/autocomplete) 
 to provide location results and caches selected results in a history file for later use
