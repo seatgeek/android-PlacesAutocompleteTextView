@@ -12,6 +12,7 @@ import com.seatgeek.placesautocomplete.network.PlacesHttpClient;
 import com.seatgeek.placesautocomplete.util.LocationUtils;
 
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * An Abstraction for the Google Maps Places API. Manages the building of requests to the API and
@@ -30,6 +31,7 @@ public class PlacesApi {
     private static final String PARAMETER_KEY = "key";
     private static final String PARAMETER_TYPE = "types";
     private static final String PARAMETER_PLACE_ID = "placeid";
+    private static final String PARAMETER_LANGUAGE = "language";
 
     private static final Long NO_BIAS_RADIUS = 20000000L;
     private static final Location NO_BIAS_LOCATION;
@@ -160,7 +162,8 @@ public class PlacesApi {
                 .appendPath(PATH_DETAILS)
                 .appendPath(PATH_JSON)
                 .appendQueryParameter(PARAMETER_KEY, googleApiKey)
-                .appendQueryParameter(PARAMETER_PLACE_ID, placeId);
+                .appendQueryParameter(PARAMETER_PLACE_ID, placeId)
+                .appendQueryParameter(PARAMETER_LANGUAGE, Locale.getDefault().toString());
 
         return httpClient.executeDetailsRequest(uriBuilder.build());
     }
