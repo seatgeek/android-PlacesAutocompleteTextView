@@ -1,8 +1,11 @@
 package com.seatgeek.placesautocomplete.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public enum AddressComponentType {
+public enum AddressComponentType implements Parcelable{
     @SerializedName("administrative_area_level_1")
     ADMINISTRATIVE_AREA_LEVEL_1,
     @SerializedName("administrative_area_level_2")
@@ -68,5 +71,28 @@ public enum AddressComponentType {
     @SerializedName("subpremise")
     SUBPREMISE,
     @SerializedName("transit_station")
-    TRANSIT_STATION,
+    TRANSIT_STATION;
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(ordinal());
+    }
+
+    public static final Creator<AddressComponentType> CREATOR = new Creator<AddressComponentType>() {
+        @Override
+        public AddressComponentType createFromParcel(final Parcel source) {
+            return AddressComponentType.values()[source.readInt()];
+        }
+
+        @Override
+        public AddressComponentType[] newArray(final int size) {
+            return new AddressComponentType[size];
+        }
+    };
 }
