@@ -49,6 +49,9 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     @NonNull
     private AbstractPlacesAutocompleteAdapter adapter;
 
+    @Nullable
+    private String languageCode;
+
     private boolean completionEnabled = true;
 
     /**
@@ -103,7 +106,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_googleMapsApiKey);
         String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_adapterClass);
         String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_historyFile);
-        String languageCode = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_languageCode);
+        languageCode = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_languageCode);
         resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_pacv_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
         typedArray.recycle();
 
@@ -123,6 +126,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
                 .setApiClient(PlacesHttpClientResolver.PLACES_HTTP_CLIENT)
                 .setGoogleApiKey(finalApiKey)
                 .build();
+
         if (languageCode != null) {
             api.setLanguageCode(languageCode);
         }
@@ -415,5 +419,24 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         this.resultType = resultType;
 
         adapter.setResultType(resultType);
+    }
+
+    /**
+     * @return the languageCode code
+     */
+    @Nullable
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    /**
+     * Sets the languageCode code used for autocomplete and place details calls.
+     * List of supportable codes can be seen in <a href="https://developers.google.com/maps/faq#languagesupport">documentation</a>
+     *
+     * @param languageCode the languageCode
+     */
+    public void setLanguageCode(@Nullable String languageCode) {
+        this.languageCode = languageCode;
+        api.setLanguageCode(this.languageCode);
     }
 }

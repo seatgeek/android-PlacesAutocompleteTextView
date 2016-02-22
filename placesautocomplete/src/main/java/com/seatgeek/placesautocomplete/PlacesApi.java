@@ -189,6 +189,7 @@ public class PlacesApi {
                 .appendPath(PATH_JSON)
                 .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_PLACE_ID, placeId);
+
         if (languageCode != null) {
             uriBuilder.appendQueryParameter(PARAMETER_LANGUAGE, languageCode);
         }
