@@ -163,7 +163,7 @@ public class PlacesApi {
                 .appendPath(PATH_JSON)
                 .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_PLACE_ID, placeId)
-                .appendQueryParameter(PARAMETER_LANGUAGE, Locale.getDefault().toString());
+                .appendQueryParameter(PARAMETER_LANGUAGE, Locale.getDefault().getLanguage());
 
         return httpClient.executeDetailsRequest(uriBuilder.build());
     }
