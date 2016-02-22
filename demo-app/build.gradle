@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId  "${GROUP}.placesautocompletedemo"
-        minSdkVersion Integer.parseInt(MIN_SDK_VERSION)
+        minSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         versionCode 1
         versionName "1.0"
