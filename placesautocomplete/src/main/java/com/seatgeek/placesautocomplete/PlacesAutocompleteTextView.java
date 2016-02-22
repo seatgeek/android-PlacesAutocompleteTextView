@@ -103,6 +103,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         String layoutApiKey = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_googleMapsApiKey);
         String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_adapterClass);
         String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_historyFile);
+        String languageCode = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_languageCode);
         resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_pacv_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
         typedArray.recycle();
 
@@ -122,6 +123,9 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
                 .setApiClient(PlacesHttpClientResolver.PLACES_HTTP_CLIENT)
                 .setGoogleApiKey(finalApiKey)
                 .build();
+        if (languageCode != null) {
+            api.setLanguageCode(languageCode);
+        }
 
         if (layoutAdapterClass != null) {
             adapter = adapterForClass(context, layoutAdapterClass);
