@@ -1,5 +1,6 @@
 package com.seatgeek.placesautocomplete.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -87,5 +88,61 @@ public final class PlaceDetails {
         this.types = types;
         this.url = url;
         this.vicinity = vicinity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlaceDetails)) return false;
+
+        PlaceDetails that = (PlaceDetails) o;
+
+        if (address_components != null ? !address_components.equals(that.address_components) : that.address_components != null) return false;
+        if (formatted_address != null ? !formatted_address.equals(that.formatted_address) : that.formatted_address != null) return false;
+        if (formatted_phone_number != null ? !formatted_phone_number.equals(that.formatted_phone_number) : that.formatted_phone_number != null) return false;
+        if (international_phone_number != null ? !international_phone_number.equals(that.international_phone_number) : that.international_phone_number != null) return false;
+        if (geometry != null ? !geometry.equals(that.geometry) : that.geometry != null) return false;
+        if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (place_id != null ? !place_id.equals(that.place_id) : that.place_id != null) return false;
+        if (opening_hours != null ? !opening_hours.equals(that.opening_hours) : that.opening_hours != null) return false;
+        if (permanently_closed != that.permanently_closed) return false;
+        if (photos != null ? !photos.equals(that.photos) : that.photos != null) return false;
+        if (scope != null ? !scope.equals(that.scope) : that.scope != null) return false;
+        if (alt_ids != null ? !alt_ids.equals(that.alt_ids) : that.alt_ids != null) return false;
+        if (address_components != null ? !address_components.equals(that.address_components) : that.address_components != null) return false;
+        if (price_level != that.price_level) return false;
+        if (rating != rating) return false;
+        if (reviews != null ? !reviews.equals(that.reviews) : that.reviews != null) return false;
+        if (types != null ? !types.equals(that.types) : that.types != null) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        if (vicinity != null ? !vicinity.equals(that.vicinity) : that.vicinity != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = address_components != null ? address_components.hashCode() : 0;
+        result = 31 * result + (formatted_address != null ? formatted_address.hashCode() : 0);
+        result = 31 * result + (formatted_phone_number != null ? formatted_phone_number.hashCode() : 0);
+        result = 31 * result + (international_phone_number != null ? international_phone_number.hashCode() : 0);
+        result = 31 * result + (geometry != null ? geometry.hashCode() : 0);
+        result = 31 * result + (icon != null ? icon.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (place_id != null ? place_id.hashCode() : 0);
+        result = 31 * result + (opening_hours != null ? opening_hours.hashCode() : 0);
+        result = 31 * result + (permanently_closed ? 1 : 0);
+        result = 31 * result + (photos != null ? photos.hashCode() : 0);
+        result = 31 * result + (scope != null ? scope.hashCode() : 0);
+        result = 31 * result + (alt_ids != null ? alt_ids.hashCode() : 0);
+        result = 31 * result + price_level;
+        long ratingBits = Double.doubleToLongBits(rating);
+        result = 31 * result + (int) (ratingBits ^ (ratingBits >>> 32));
+        result = 31 * result + (reviews != null ? reviews.hashCode() : 0);
+        result = 31 * result + (types != null ? types.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (vicinity != null ? vicinity.hashCode() : 0);
+        return result;
     }
 }

@@ -48,7 +48,7 @@ class GsonPlacesApiJsonParser implements PlacesApiJsonParser {
     public List<Place> readHistoryJson(final InputStream in) throws JsonParsingException {
         try {
             JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-            List<Place> places = new ArrayList<Place>();
+            List<Place> places = new ArrayList<>();
             reader.beginArray();
             while (reader.hasNext()) {
                 Place message = gson.fromJson(reader, Place.class);
