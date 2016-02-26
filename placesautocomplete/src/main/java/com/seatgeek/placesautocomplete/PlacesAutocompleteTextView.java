@@ -378,7 +378,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
      */
     public void setApi(@NonNull PlacesApi api) {
         this.api = api;
-
+        this.api.setLanguageCode(this.languageCode);
         adapter.setApi(api);
     }
 
