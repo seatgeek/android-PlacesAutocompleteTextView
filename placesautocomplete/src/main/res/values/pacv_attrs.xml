@@ -5,6 +5,7 @@
         <attr name="pacv_googleMapsApiKey" format="string"/>
         <attr name="pacv_adapterClass" format="string"/>
         <attr name="pacv_historyFile" format="string"/>
+        <attr name="pacv_languageCode" format="string"/>
         <attr name="pacv_resultType" format="enum">
             <enum name="geocode" value="0"/>
             <enum name="address" value="1"/>

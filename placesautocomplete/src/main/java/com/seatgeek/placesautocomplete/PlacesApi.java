@@ -30,6 +30,7 @@ public class PlacesApi {
     private static final String PARAMETER_KEY = "key";
     private static final String PARAMETER_TYPE = "types";
     private static final String PARAMETER_PLACE_ID = "placeid";
+    private static final String PARAMETER_LANGUAGE = "language";
 
     private static final Long NO_BIAS_RADIUS = 20000000L;
     private static final Location NO_BIAS_LOCATION;
@@ -51,6 +52,9 @@ public class PlacesApi {
 
     @Nullable
     private Long radiusM;
+
+    @Nullable
+    private String languageCode;
 
     private boolean locationBiasEnabled = true;
 
@@ -111,6 +115,26 @@ public class PlacesApi {
         this.currentLocation = currentLocation;
     }
 
+
+    /**
+     *
+     * @return the languageCode code
+     */
+    @Nullable
+    public String getLanguageCode() {
+        return languageCode;
+    }
+
+    /**
+     * Sets the languageCode code used for autocomplete and place details calls.
+     * List of supportable codes can be seen in <a href="https://developers.google.com/maps/faq#languagesupport">documentation</a>
+     *
+     * @param language the languageCode code
+     */
+    public void setLanguageCode(@Nullable String language) {
+        this.languageCode = language;
+    }
+
     /**
      * Performs autocompletion for the given input text and the type of response desired. This is a
      * synchronous call, you must provide your own Async if you need it
@@ -144,6 +168,10 @@ public class PlacesApi {
             uriBuilder.appendQueryParameter(PARAMETER_RADIUS, NO_BIAS_RADIUS.toString());
         }
 
+        if (languageCode != null) {
+            uriBuilder.appendQueryParameter(PARAMETER_LANGUAGE, languageCode);
+        }
+
         return httpClient.executeAutocompleteRequest(uriBuilder.build());
     }
 
@@ -161,6 +189,11 @@ public class PlacesApi {
                 .appendPath(PATH_JSON)
                 .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_PLACE_ID, placeId);
+
+        if (languageCode != null) {
+            uriBuilder.appendQueryParameter(PARAMETER_LANGUAGE, languageCode);
+        }
+
 
         return httpClient.executeDetailsRequest(uriBuilder.build());
     }
