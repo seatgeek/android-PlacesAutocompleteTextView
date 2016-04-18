@@ -10,17 +10,17 @@ jdk:
 before_install:
 - export TERM=dumb
 - chmod +x gradlew
-- ./gradlew -v
+- "./gradlew -v"
 - uname -a
 sudo: false
 cache:
   directories:
-  - $HOME/.gradle/caches/
+  - "$HOME/.gradle/caches/"
 script:
-- ./gradlew clean :placesautocomplete:assemble :placesautocomplete:test
+- "./gradlew clean :placesautocomplete:assemble :placesautocomplete:test"
 after_success:
 - buildscripts/deploy_snapshot.sh
 env:
   global:
-  - secure: V8rWhSi7Ole3BJpto9czzjLTbjMQr6vJH/R3TaKRg5T9c4sU3yFITwgVxMc1z4hjr1uRty2NT/ncybTswMcmNadFAB3qT/dYym4QSilC8vU/C5LMwfjmvbLZ4aQSIdv0lBXBkpkzXfL4fLlt5Poy83Uqjy7Dsi2aEXEYYNK942M=
-  - secure: b5ma17Xy7COhs3s7dBvqwPhAfqdCaohrPMPlP7uqxYerOKSupzFR3lFUOC38axvhRCYJAkJH8sAy54PLM1vM6liUYfZdF5r38pbOXWFFdgpzJYEznyXZTdiFLramtpikXqdGIVK+RjZxadHI5zAZ31FAirKQKo3f9uBNTXOsq34=
+  - secure: Olt67hGpJBkvBFKyqpu10xKfke18ZQDbV1tHt2NKhZYsO9Yk5vaf21Z7SZzDDtFdY51eLqiJmXHaztlTn0/r7GuZ9SJcBKdb1tOEzqFVp6ZIFXIxzQnL/MYVn4d7gMLYgOrh7wEBOSYmEenU4VKiZc3xaah3ux95F1ln1YFeUnbsJfWYbt/rTKzePzD7J6PCEVBMgNyBlrI1xSY8yOpOhogNOkS6nAbcQ8/Al2310de9yoeU1wjoia/k5HafC5jTvP3YUKzsHq62YhsOTLtvE3tDIFT0tzlgTfkKq5PGFrQKs8uvRDCJYEphyHJLx1V1JqKnulK2TvHBq+dLqSXBW3HE3gCeC4GsBxyXysfxKdKTmfLl9hOLH8y6DJLH6G0EAndFso2SmKlhJJC1znl0VCmuheQLtS67jfmvL9+rpQyWeWinWdRi4+VUdnJMi+ecy1soTJJVb81VOUGJq8lUCOTIKIsqM2bpVZYdfUbgws4x721cULZw6C5hX9vIqDmNyJ0K4P8TQhf+JLCjQlD14BK/0QLoAILPqon8TwSXb2AF7L+5F6VvZYe6n7zux+1+8nceaF/Qi8HqhU/CAqPDGKrwMZiAT4jKonKEJwjJNsOWLZpQCXOU3c38Vb9RL9liV4txSAImKnvF+Sk2NQOkpm+QS8+fzaoOzHyxHwfouHg=
+  - secure: OlbSd3UxBdkFnDhxiu6kcvKiwE0yfYJFA+NmzVKw9eUB11JJsvKXBuD7nJTx1Qt9hXphZ0wUidpcxDJx7IyH+UdInecurpYF/wxm2N1p1h/VCSzPTDzo47sOVYrvtH58ictbZhl+R+mTLvXlcibKtiTGMa2ZuQmPKURUNEXdk+oF9GcfURPe6efaUmaebz3TOgr/eAQR+T9aSMhXD0KyZv3L9Fv/h0i4WIjJLnzy5WJ5yTTVF7uh/ZVq1HSgAvuvpkJUAgOH/hzWiIff77B+2GMewmRxsVO4xESAhodWPqzRBz6mI+wJc++sGRUdLo44J/2nDwW2LoITiX1EZ1dZbKGTQETEsTSlyOuk0TDmiPPfyFBYFnO5MuOcOSwGyEeZsT2Q7Qog91hiPEW+MFNd78y7mb20hN2xVoBc5tgqx5hCU8sGwLVrUDLlvO2mFW5U7jeFGTSsQ8gYPBqTxSpvYjFzg2ONzfyVWDwKj4UEROH6K314HSWY5Yrf7frYylN2hPIDZGWaVhHc7gxGv+z+QjmnP1RNUeLTisZjYG3muTbe/0K3EP4LebQTogrGMU4/xdoWgUaGB5CEjv1eNZEl85rAgjV7RAu4rW/V9FXEwcNb/C0qVaymxx0Ewm2+aJu8Dks6nKzQxJ202ThIGYQ6c2zleqMUjE3W87JKxZURCyY=
