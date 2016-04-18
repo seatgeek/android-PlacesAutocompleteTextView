@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="16dp"
-        app:pacv_languageCode="ru"
+        app:pacv_languageCode="en"
         app:pacv_googleMapsApiKey="@string/google_maps_api_key"
         app:pacv_adapterClass="com.seatgeek.placesautocompletedemo.TestPlacesAutocompleteAdapter"/>
 

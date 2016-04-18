@@ -26,10 +26,10 @@ public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Pla
     @NonNull
     private final PlacesApiFilter mFilter;
 
-    protected AbstractPlacesAutocompleteAdapter(@NonNull final Context context,
-                                                @NonNull final PlacesApi api,
-                                                @Nullable final AutocompleteResultType autocompleteResultType,
-                                                @Nullable AutocompleteHistoryManager history) {
+    public AbstractPlacesAutocompleteAdapter(@NonNull final Context context,
+                                             @NonNull final PlacesApi api,
+                                             @Nullable final AutocompleteResultType autocompleteResultType,
+                                             @Nullable final AutocompleteHistoryManager history) {
         super(context, 0);
 
         mFilter = new PlacesApiFilter(

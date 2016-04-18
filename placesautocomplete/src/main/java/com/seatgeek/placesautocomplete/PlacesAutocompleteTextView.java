@@ -230,7 +230,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
                     ", " +
                     AutocompleteResultType.class.getSimpleName() +
                     ", and " +
-                    DefaultAutocompleteHistoryManager.class.getSimpleName() +
+                    AutocompleteHistoryManager.class.getSimpleName() +
                     " for specified adapterClass: " + adapterClass, e);
         }
 
