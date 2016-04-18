@@ -33,9 +33,14 @@ public class DefaultAutocompleteHistoryManager implements AutocompleteHistoryMan
             throw new IllegalArgumentException("Cannot have an empty historyFile name");
         }
 
-        File historyFile = new File(context.getCacheDir(), BASE_AUTOCOMPLETE_HISTORY_DIR + historyFileName);
 
-        return new DefaultAutocompleteHistoryManager(historyFile, JsonParserResolver.JSON_PARSER);
+        File historyDir = new File(context.getCacheDir(), BASE_AUTOCOMPLETE_HISTORY_DIR);
+
+        if (!historyDir.exists()) {
+            historyDir.mkdirs();
+        }
+
+        return new DefaultAutocompleteHistoryManager(new File(historyDir, historyFileName), JsonParserResolver.JSON_PARSER);
     }
 
     @NonNull
@@ -65,7 +70,7 @@ public class DefaultAutocompleteHistoryManager implements AutocompleteHistoryMan
             @Override
             public List<Place> executeInBackground() throws Exception {
                 if (!savedFile.getBaseFile().exists()) {
-                    throw new FileNotFoundException("History file does not exist");
+                    return Collections.emptyList();
                 }
 
                 InputStream is = null;
