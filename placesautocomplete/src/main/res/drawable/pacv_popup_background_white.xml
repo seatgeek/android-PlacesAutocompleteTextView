@@ -31,7 +31,7 @@
 
     <item>
         <shape>
-            <padding android:bottom="8dp"/>
+            <padding android:bottom="12dp"/>
             <solid android:color="#00000000"/>
         </shape>
     </item>
