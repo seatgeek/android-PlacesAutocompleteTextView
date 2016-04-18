@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DefaultAutocompleteHistoryManager implements AutocompleteHistoryManager {
-    private static final String BASE_AUTOCOMPLETE_HISTORY_DIR = "autocomplete/";
+    private static final String BASE_AUTOCOMPLETE_HISTORY_DIR = "autocomplete";
     private static final int MAX_HISTORY_ITEM_COUNT = 5;
 
     public static AutocompleteHistoryManager fromPath(@NonNull Context context, @NonNull String historyFileName) {
