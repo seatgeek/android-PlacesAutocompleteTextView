@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView.svg)](https://travis-ci.org/seatgeek/android-PlacesAutocompleteTextView) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PlacesAutocompleteTextView-green.svg?style=true)](https://android-arsenal.com/details/1/2777)
 
-An AutocompleteTextView that interacts with the [Google Maps Places API](https://developers.google.com/places/web-service/autocomplete) 
+An AutocompleteTextView that interacts with the [Google Maps Places API](https://developers.google.com/places/web-service/autocomplete)
 to provide location results and caches selected results in a history file for later use
 
 ![gif](resources/autocomplete.gif)
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.seatgeek:placesautocomplete:0.1-SNAPSHOT'
+    compile 'com.seatgeek:placesautocomplete:0.2-SNAPSHOT'
 }
 ```
 
@@ -26,7 +26,7 @@ dependencies {
 
 1. You'll need a Google Server API key for you application. There are instructions on how to set up your API project and generate a key [here](https://developers.google.com/places/web-service/get-api-key)
 
-2. Your application will need the `android.permission.INTERNET` permission in its manifest for the 
+2. Your application will need the `android.permission.INTERNET` permission in its manifest for the
 View to interact with the Google Maps API
 
 3. With your API key, you're ready to add the `PlacesAutocompleteTextView` to your layout xml:
@@ -72,25 +72,25 @@ xml property | java method | description
 
 One of the requirements of our usage of this view was autofilling the payment and shipping addresses
 in our checkout flow. By default, the returned `Place` from the Google Maps API doesn't have the
-full set of address components (city, state, postal, street address, etc.) and instead provides it 
-"conveniently" in a human readable string like "235 Park Ave South, New York, NY 10003". Which is 
-probably pretty tricky to parse to get the address components. Enter the 
-["Place Details" API](https://developers.google.com/places/web-service/details). The 
+full set of address components (city, state, postal, street address, etc.) and instead provides it
+"conveniently" in a human readable string like "235 Park Ave South, New York, NY 10003". Which is
+probably pretty tricky to parse to get the address components. Enter the
+["Place Details" API](https://developers.google.com/places/web-service/details). The
 `PlacesAutocompleteTextView` provides a helper method `getDetailsFor(Place, DetailsCallback)` that
-you can use to easily fetch the extra details that you might need. The `PlaceDetails` object has a 
-lot more than just address components as well, so if you're building a complex UI around a location, 
+you can use to easily fetch the extra details that you might need. The `PlaceDetails` object has a
+lot more than just address components as well, so if you're building a complex UI around a location,
 this is probably the API call that you'll need to make.
 
-If you have concerns about configuration changes while the details request is in-flight, you can 
-grab the instance of the `PlacesApi` from `PlacesAutoCompleteTextView#getApi()` and manage the 
+If you have concerns about configuration changes while the details request is in-flight, you can
+grab the instance of the `PlacesApi` from `PlacesAutoCompleteTextView#getApi()` and manage the
 details request yourself.
 
 See the example project for this API in use.
 
 #### Getting stylish
 
-The `PlacesAutocompleteTextView` is styleable using the `pacv_placesAutoCompleteTextViewStyle` 
-global style attribute. The style should extend from `PACV.Widget.PlacesAutoCompleteTextView` to 
+The `PlacesAutocompleteTextView` is styleable using the `pacv_placesAutoCompleteTextViewStyle`
+global style attribute. The style should extend from `PACV.Widget.PlacesAutoCompleteTextView` to
 get the default style's parameters, e.g.:
 
 `styles.xml`:
@@ -111,27 +111,27 @@ get the default style's parameters, e.g.:
 
 #### Location biasing
 
-A common thing that you might want to do is bias the place results to the location of the user. 
-By default, the `PlacesAutocompleteTextView` will bias the results by a geoip lookup of 
-the device's IP address. If your app has different requirements for where you want to bias the 
-address results to or you want more accuracy than a geoip lookup, you can pass an Android 
+A common thing that you might want to do is bias the place results to the location of the user.
+By default, the `PlacesAutocompleteTextView` will bias the results by a geoip lookup of
+the device's IP address. If your app has different requirements for where you want to bias the
+address results to or you want more accuracy than a geoip lookup, you can pass an Android
 `Location` into the `PlacesAutocompleteTextView` using the `#setCurrentLocation()` method.
 
 You can tweak the biasing radius by using the `setRadiusMeters(Long)` method.
- 
+
 If you'd like to disable biasing completely, you can `setLocationBiasEnabled(false)`
 
 ### Purpose and "why not use Google Play Services?"
 
-This project was started internally before the Places API was released on Google Play Services and 
-we needed a way to make entering your payment and shipping addresses in our Android app easier. The 
+This project was started internally before the Places API was released on Google Play Services and
+we needed a way to make entering your payment and shipping addresses in our Android app easier. The
 reason that this project is still alive and hasn't migrated to Google Play Services is twofold:
 
-  0. It's still impossible to fetch the full `PlaceDetails` from the Google Play Services 
-  implementation [\[ref\]](https://developers.google.com/places/android-api/place-details), without 
+  0. It's still impossible to fetch the full `PlaceDetails` from the Google Play Services
+  implementation [\[ref\]](https://developers.google.com/places/android-api/place-details), without
   which you cannot get the full breakdown of address components
-  0. It handles hooking the UI components to the data for you to accelerate your development 
-  process. With Google Play Services you still need to create your own `FilterAdapter`, 
+  0. It handles hooking the UI components to the data for you to accelerate your development
+  process. With Google Play Services you still need to create your own `FilterAdapter`,
   `AutocompleteTextView`, etc.
 
 ### Contributing
