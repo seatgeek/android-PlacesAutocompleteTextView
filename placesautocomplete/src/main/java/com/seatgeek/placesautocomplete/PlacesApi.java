@@ -144,16 +144,29 @@ public class PlacesApi {
      */
     public PlacesAutocompleteResponse autocomplete(final String input, final AutocompleteResultType type) throws IOException {
         final String finalInput = input == null ? "" : input;
+        Uri.Builder uriBuilder;
 
         final AutocompleteResultType finalType = type == null ? DEFAULT_RESULT_TYPE : type;
 
-        Uri.Builder uriBuilder = Uri.parse(PLACES_API_BASE)
-                .buildUpon()
-                .appendPath(PATH_AUTOCOMPLETE)
-                .appendPath(PATH_JSON)
-                .appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam())
-                .appendQueryParameter(PARAMETER_KEY, googleApiKey)
-                .appendQueryParameter(PARAMETER_INPUT, finalInput);
+        if (finalType.getQueryParam() == "no_type") {
+
+            uriBuilder = Uri.parse(PLACES_API_BASE)
+                    .buildUpon()
+                    .appendPath(PATH_AUTOCOMPLETE)
+                    .appendPath(PATH_JSON)
+                    .appendQueryParameter(PARAMETER_KEY, googleApiKey)
+                    .appendQueryParameter(PARAMETER_INPUT, finalInput);
+
+        } else {
+
+            uriBuilder = Uri.parse(PLACES_API_BASE)
+                    .buildUpon()
+                    .appendPath(PATH_AUTOCOMPLETE)
+                    .appendPath(PATH_JSON)
+                    .appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam())
+                    .appendQueryParameter(PARAMETER_KEY, googleApiKey)
+                    .appendQueryParameter(PARAMETER_INPUT, finalInput);
+        }
 
         if (locationBiasEnabled && currentLocation != null) {
             uriBuilder.appendQueryParameter(PARAMETER_LOCATION, LocationUtils.toLatLngString(currentLocation));
