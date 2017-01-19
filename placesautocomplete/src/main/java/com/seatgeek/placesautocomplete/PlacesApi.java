@@ -144,28 +144,18 @@ public class PlacesApi {
      */
     public PlacesAutocompleteResponse autocomplete(final String input, final AutocompleteResultType type) throws IOException {
         final String finalInput = input == null ? "" : input;
-        Uri.Builder uriBuilder;
 
         final AutocompleteResultType finalType = type == null ? DEFAULT_RESULT_TYPE : type;
 
-        if (finalType.getQueryParam() == "no_type") {
+        Uri.Builder uriBuilder = Uri.parse(PLACES_API_BASE)
+                .buildUpon()
+                .appendPath(PATH_AUTOCOMPLETE)
+                .appendPath(PATH_JSON)
+                .appendQueryParameter(PARAMETER_KEY, googleApiKey)
+                .appendQueryParameter(PARAMETER_INPUT, finalInput);
 
-            uriBuilder = Uri.parse(PLACES_API_BASE)
-                    .buildUpon()
-                    .appendPath(PATH_AUTOCOMPLETE)
-                    .appendPath(PATH_JSON)
-                    .appendQueryParameter(PARAMETER_KEY, googleApiKey)
-                    .appendQueryParameter(PARAMETER_INPUT, finalInput);
-
-        } else {
-
-            uriBuilder = Uri.parse(PLACES_API_BASE)
-                    .buildUpon()
-                    .appendPath(PATH_AUTOCOMPLETE)
-                    .appendPath(PATH_JSON)
-                    .appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam())
-                    .appendQueryParameter(PARAMETER_KEY, googleApiKey)
-                    .appendQueryParameter(PARAMETER_INPUT, finalInput);
+        if (finalType != AutocompleteResultType.NO_TYPE) {
+            uriBuilder.appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam());
         }
 
         if (locationBiasEnabled && currentLocation != null) {
