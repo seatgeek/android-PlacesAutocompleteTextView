@@ -151,9 +151,12 @@ public class PlacesApi {
                 .buildUpon()
                 .appendPath(PATH_AUTOCOMPLETE)
                 .appendPath(PATH_JSON)
-                .appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam())
                 .appendQueryParameter(PARAMETER_KEY, googleApiKey)
                 .appendQueryParameter(PARAMETER_INPUT, finalInput);
+
+        if (finalType != AutocompleteResultType.NO_TYPE) {
+            uriBuilder.appendQueryParameter(PARAMETER_TYPE, finalType.getQueryParam());
+        }
 
         if (locationBiasEnabled && currentLocation != null) {
             uriBuilder.appendQueryParameter(PARAMETER_LOCATION, LocationUtils.toLatLngString(currentLocation));
