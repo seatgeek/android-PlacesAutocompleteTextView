@@ -6,5 +6,7 @@ public enum PlaceType {
     @SerializedName("route")
     ROUTE,
     @SerializedName("geocode")
-    GEOCODE
+    GEOCODE,
+    @SerializedName("establishment")
+    ESTABLISHMENT
 }
