@@ -846,8 +846,8 @@ class AndroidPlacesApiJsonParser implements PlacesApiJsonParser {
                 case "geocode":
                     types.add(PlaceType.GEOCODE);
                     break;
-                default:
-                    reader.skipValue();
+                case "establishment":
+                    types.add(PlaceType.ESTABLISHMENT);
                     break;
             }
         }
