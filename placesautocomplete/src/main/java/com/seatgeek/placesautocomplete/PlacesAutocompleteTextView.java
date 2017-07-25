@@ -1,18 +1,20 @@
 package com.seatgeek.placesautocomplete;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.location.Location;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.View;
+import android.view.ViewParent;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.AdapterView;
-import android.widget.AutoCompleteTextView;
 import android.widget.Filterable;
 import android.widget.ListAdapter;
 
@@ -30,7 +32,7 @@ import com.seatgeek.placesautocomplete.network.PlacesHttpClientResolver;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-public class PlacesAutocompleteTextView extends AutoCompleteTextView {
+public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
 
     public static final boolean DEBUG = true;
 
@@ -88,16 +90,6 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
         super(context, attrs, defAttr);
 
         init(context, attrs, defAttr, R.style.PACV_Widget_PlacesAutoCompleteTextView, null, context.getString(R.string.pacv_default_history_file_name));
-    }
-
-    /**
-     * Constructor for layout inflation
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-
-        init(context, attrs, defStyleAttr, defStyleRes, null, context.getString(R.string.pacv_default_history_file_name));
     }
 
     // perform basic initialization of the view by fetching layout attributes and creating the api, etc.
@@ -438,5 +430,24 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     public void setLanguageCode(@Nullable String languageCode) {
         this.languageCode = languageCode;
         api.setLanguageCode(this.languageCode);
+    }
+
+    // Copied from TextInputEditText to ensure extract mode hint works
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        final InputConnection ic = super.onCreateInputConnection(outAttrs);
+        if (ic != null && outAttrs.hintText == null) {
+            // If we don't have a hint and our parent is a TextInputLayout, use it's hint for the
+            // EditorInfo. This allows us to display a hint in 'extract mode'.
+            ViewParent parent = getParent();
+            while (parent instanceof View) {
+                if (parent instanceof TextInputLayout) {
+                    outAttrs.hintText = ((TextInputLayout) parent).getHint();
+                    break;
+                }
+                parent = parent.getParent();
+            }
+        }
+        return ic;
     }
 }
