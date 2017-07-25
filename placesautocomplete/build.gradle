@@ -42,7 +42,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:${SUPPORT_LIBRARY_VERSION}"
     compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
     compile "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
     provided 'com.google.code.gson:gson:2.3.1'
