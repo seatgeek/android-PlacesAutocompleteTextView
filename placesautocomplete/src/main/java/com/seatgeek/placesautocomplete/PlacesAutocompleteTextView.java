@@ -7,10 +7,14 @@ import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.View;
+import android.view.ViewParent;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Filterable;
@@ -438,5 +442,24 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     public void setLanguageCode(@Nullable String languageCode) {
         this.languageCode = languageCode;
         api.setLanguageCode(this.languageCode);
+    }
+
+    // Copied from TextInputEditText to ensure extract mode hint works
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        final InputConnection ic = super.onCreateInputConnection(outAttrs);
+        if (ic != null && outAttrs.hintText == null) {
+            // If we don't have a hint and our parent is a TextInputLayout, use it's hint for the
+            // EditorInfo. This allows us to display a hint in 'extract mode'.
+            ViewParent parent = getParent();
+            while (parent instanceof View) {
+                if (parent instanceof TextInputLayout) {
+                    outAttrs.hintText = ((TextInputLayout) parent).getHint();
+                    break;
+                }
+                parent = parent.getParent();
+            }
+        }
+        return ic;
     }
 }
