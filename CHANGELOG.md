@@ -1,6 +1,12 @@
 PlacesAutocompleteTextView
 --------------------------
 
+Version 0.3
+--------------------------
+- Update support library versions and add dependency on design support lib
+- Disabled extracted mode for landscape
+- Added ability to turn off result types
+
 Version 0.2
 --------------------------
 - Language selection support

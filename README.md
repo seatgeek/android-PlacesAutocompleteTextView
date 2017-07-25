@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.seatgeek:placesautocomplete:0.2-SNAPSHOT'
+    compile 'com.seatgeek:placesautocomplete:0.3-SNAPSHOT'
 }
 ```
 

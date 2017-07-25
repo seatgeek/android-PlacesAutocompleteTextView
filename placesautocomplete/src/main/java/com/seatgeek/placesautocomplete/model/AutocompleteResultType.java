@@ -24,7 +24,7 @@ public enum AutocompleteResultType {
 
     private final String queryParam;
 
-   AutocompleteResultType(final String queryParam) {
+    AutocompleteResultType(final String queryParam) {
         this.queryParam = queryParam;
     }
 

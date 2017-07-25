@@ -91,7 +91,7 @@ public class PlacesAutocompleteTextView extends AutoCompleteTextView {
     }
 
     /**
-     * Constructor for layout inflation
+     * Constructor for layout inflaton
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public PlacesAutocompleteTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
