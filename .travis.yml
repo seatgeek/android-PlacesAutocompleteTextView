@@ -1,10 +1,13 @@
 language: android
 android:
   components:
-  - build-tools-26.0.1
-  - extra-android-m2repository
-  - extra-google-m2repository
-  - android-26
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-26.0.1
+    - extra-android-m2repository
+    - extra-google-m2repository
+    - android-26
 jdk:
 - oraclejdk8
 before_install:
