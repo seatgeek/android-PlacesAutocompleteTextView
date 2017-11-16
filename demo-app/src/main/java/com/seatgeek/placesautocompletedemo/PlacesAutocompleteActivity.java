@@ -13,24 +13,24 @@ import com.seatgeek.placesautocomplete.model.AddressComponentType;
 import com.seatgeek.placesautocomplete.model.Place;
 import com.seatgeek.placesautocomplete.model.PlaceDetails;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class PlacesAutocompleteActivity extends AppCompatActivity {
 
-    @InjectView(R.id.autocomplete)
+    @BindView(R.id.autocomplete)
     PlacesAutocompleteTextView mAutocomplete;
 
-    @InjectView(R.id.street)
+    @BindView(R.id.street)
     TextView mStreet;
 
-    @InjectView(R.id.city)
+    @BindView(R.id.city)
     TextView mCity;
 
-    @InjectView(R.id.state)
+    @BindView(R.id.state)
     TextView mState;
 
-    @InjectView(R.id.zip)
+    @BindView(R.id.zip)
     TextView mZip;
 
     @Override
@@ -38,7 +38,7 @@ public class PlacesAutocompleteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_places_autocomplete);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         mAutocomplete.setOnPlaceSelectedListener(new OnPlaceSelectedListener() {
             @Override
