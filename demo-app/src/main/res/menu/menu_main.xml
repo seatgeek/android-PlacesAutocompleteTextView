@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="d.date.test.com.searchplacesapiandfirestore.MainActivity">
+    <item
+        android:id="@+id/action_show_x"
+        android:orderInCategory="100"
+        android:title="Show the clear button"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_hide_x"
+        android:orderInCategory="100"
+        android:title="Hide the clear button"
+        app:showAsAction="never" />
+</menu>
