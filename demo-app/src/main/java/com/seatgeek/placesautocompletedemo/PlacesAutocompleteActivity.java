@@ -101,10 +101,12 @@ public class PlacesAutocompleteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_hide_x)
-            mAutocomplete.showClearButton(false);
-        if (id == R.id.action_show_x)
-            mAutocomplete.showClearButton(true);
+        if (id == R.id.action_hide_x) {
+            mAutocomplete.showClearButton(this, false);
+        }
+        if (id == R.id.action_show_x) {
+            mAutocomplete.showClearButton(this, true);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

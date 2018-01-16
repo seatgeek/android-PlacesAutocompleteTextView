@@ -7,6 +7,7 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -59,8 +60,6 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     private boolean completionEnabled = true;
 
     private boolean clearEnabled;
-
-    private boolean justCleared;
 
     public Drawable imgClearButton;
 
@@ -171,18 +170,20 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
                 }
             }
         });
-        if(clearEnabled)
-            enableClearButton(true);
+        if(clearEnabled) {
+            enableClearButton(context, true);
+        }
         super.setDropDownBackgroundResource(R.drawable.pacv_popup_background_white);
     }
 
-    private void enableClearButton(boolean value){
+    private void enableClearButton(Context context, boolean value){
         if(!value) {
             this.setCompoundDrawables(null, null, null, null);
             return;
         }
-        if(imgClearButton == null)
-            imgClearButton = getResources().getDrawable(R.drawable.ic_clear_black_24dp);
+        if(imgClearButton == null) {
+            imgClearButton = ContextCompat.getDrawable(context, R.drawable.ic_clear_black_24dp);
+        }
         // Set the bounds of the clear button
         this.setCompoundDrawablesWithIntrinsicBounds(null, null, imgClearButton, null);
 
@@ -198,7 +199,6 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
                     return false;
                 if (event.getX() > et.getWidth() - et.getPaddingRight() - finalImgClearButton.getIntrinsicWidth()) {
                     onClearListener.onClear();
-                    justCleared = true;
                 }
                 return false;
             }
@@ -231,9 +231,9 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     /**
      * Override the default Clear button image and add your own
      */
-    public void setImgClearButton(Drawable imgClearButton) {
+    public void setImgClearButton(Context context,Drawable imgClearButton) {
         this.imgClearButton = imgClearButton;
-        enableClearButton(true);
+        enableClearButton(context, true);
     }
 
     /**
@@ -246,8 +246,8 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     /**
      * Show the the clear button
      */
-    public void showClearButton(boolean value) {
-        enableClearButton(value);
+    public void showClearButton(Context context, boolean value) {
+        enableClearButton(context, value);
     }
     /**
      * @return the current adapter for displaying the list of results in the popup window
