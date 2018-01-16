@@ -7,7 +7,7 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -171,18 +171,18 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
             }
         });
         if(clearEnabled) {
-            enableClearButton(context, true);
+            enableClearButton(true);
         }
         super.setDropDownBackgroundResource(R.drawable.pacv_popup_background_white);
     }
 
-    private void enableClearButton(Context context, boolean value){
+    private void enableClearButton(boolean value){
         if(!value) {
             this.setCompoundDrawables(null, null, null, null);
             return;
         }
         if(imgClearButton == null) {
-            imgClearButton = ContextCompat.getDrawable(context, R.drawable.ic_clear_black_24dp);
+            imgClearButton = AppCompatResources.getDrawable(getContext(), R.drawable.ic_clear_black_24dp);
         }
         // Set the bounds of the clear button
         this.setCompoundDrawablesWithIntrinsicBounds(null, null, imgClearButton, null);
@@ -231,9 +231,9 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     /**
      * Override the default Clear button image and add your own
      */
-    public void setImgClearButton(Context context,Drawable imgClearButton) {
+    public void setImgClearButton(Drawable imgClearButton) {
         this.imgClearButton = imgClearButton;
-        enableClearButton(context, true);
+        enableClearButton(true);
     }
 
     /**
@@ -246,8 +246,8 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     /**
      * Show the the clear button
      */
-    public void showClearButton(Context context, boolean value) {
-        enableClearButton(context, value);
+    public void showClearButton(boolean value) {
+        enableClearButton(value);
     }
     /**
      * @return the current adapter for displaying the list of results in the popup window
