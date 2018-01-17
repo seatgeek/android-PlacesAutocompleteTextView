@@ -28,6 +28,7 @@ android {
         targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
+        vectorDrawables.useSupportLibrary = true;
     }
 
     buildTypes {

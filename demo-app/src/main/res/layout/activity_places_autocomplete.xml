@@ -18,6 +18,7 @@
         android:hint="Address"
         app:pacv_languageCode="en"
         app:pacv_resultType="no_type"
+        app:pacv_clearEnabled="true"
         app:pacv_googleMapsApiKey="@string/google_maps_api_key"
         app:pacv_adapterClass="com.seatgeek.placesautocompletedemo.TestPlacesAutocompleteAdapter"/>
 
