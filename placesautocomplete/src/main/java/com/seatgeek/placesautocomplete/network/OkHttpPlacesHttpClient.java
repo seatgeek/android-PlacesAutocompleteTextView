@@ -32,15 +32,19 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
 
         Response response = okHttpClient.newCall(request).execute();
 
-        T body = responseHandler.handleStreamResult(response.body().byteStream());
-
-        Status status = body.status;
-
-        if (status != null && !status.isSuccessful()) {
-            String err = body.error_message;
-            throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
-        } else {
-            return body;
+        try {
+            T body = responseHandler.handleStreamResult(response.body().byteStream());
+            Status status = body.status;
+            if (status != null && !status.isSuccessful()) {
+                String err = body.error_message;
+                throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
+            } else {
+                return body;
+            }
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
         }
     }
 }
