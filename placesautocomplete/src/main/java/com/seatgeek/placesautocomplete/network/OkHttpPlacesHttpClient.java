@@ -1,7 +1,9 @@
 package com.seatgeek.placesautocomplete.network;
 
 import android.net.Uri;
+import android.util.Log;
 
+import com.seatgeek.placesautocomplete.Constants;
 import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.model.PlacesApiException;
 import com.seatgeek.placesautocomplete.model.PlacesApiResponse;
@@ -43,7 +45,11 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
             }
         } finally {
             if (response != null) {
-                response.body().close();
+                try {
+                    response.body().close();
+                } catch (Exception e) {
+                    Log.w(Constants.LOG_TAG, "Exception Closing Response body..", e);
+                }
             }
         }
     }
