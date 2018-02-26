@@ -1,7 +1,9 @@
 package com.seatgeek.placesautocomplete.network;
 
 import android.net.Uri;
+import android.util.Log;
 
+import com.seatgeek.placesautocomplete.Constants;
 import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.model.PlacesApiException;
 import com.seatgeek.placesautocomplete.model.PlacesApiResponse;
@@ -32,15 +34,23 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
 
         Response response = okHttpClient.newCall(request).execute();
 
-        T body = responseHandler.handleStreamResult(response.body().byteStream());
-
-        Status status = body.status;
-
-        if (status != null && !status.isSuccessful()) {
-            String err = body.error_message;
-            throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
-        } else {
-            return body;
+        try {
+            T body = responseHandler.handleStreamResult(response.body().byteStream());
+            Status status = body.status;
+            if (status != null && !status.isSuccessful()) {
+                String err = body.error_message;
+                throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
+            } else {
+                return body;
+            }
+        } finally {
+            if (response != null) {
+                try {
+                    response.body().close();
+                } catch (Exception e) {
+                    Log.w(Constants.LOG_TAG, "Exception Closing Response body..", e);
+                }
+            }
         }
     }
 }
