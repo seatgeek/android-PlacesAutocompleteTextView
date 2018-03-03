@@ -1,4 +1,22 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
+}
+
 allprojects {
     group = GROUP
     version = VERSION_NAME
+
+    repositories {
+        jcenter()
+        google()
+    }
 }
