@@ -1,4 +1,24 @@
+buildscript {
+    ext.kotlin_version = '1.2.30'
+
+
+    repositories {
+        jcenter()
+        google()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:${ANDROID_PLUGIN_VERSION}"
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 allprojects {
     group = GROUP
     version = VERSION_NAME
+    repositories {
+        jcenter()
+        google()
+    }
 }

@@ -1,23 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:${ANDROID_PLUGIN_VERSION}"
-        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'com.bmuschko.nexus'
-
-repositories {
-    jcenter()
-    maven {
-        url "https://maven.google.com"
-    }
-}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
@@ -28,7 +12,7 @@ android {
         targetSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
-        vectorDrawables.useSupportLibrary = true;
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -43,12 +27,13 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
-    compile "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
-    provided 'com.google.code.gson:gson:2.3.1'
+    api "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
+    api "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    provided 'com.google.code.gson:gson:2.8.2'
     provided 'com.squareup.okhttp:okhttp:2.2.0'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.6'
 }
 
 modifyPom {
