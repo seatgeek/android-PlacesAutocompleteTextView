@@ -11,6 +11,7 @@ android:
 jdk:
 - oraclejdk8
 before_install:
+- yes | sdkmanager "platforms;android-27"
 - export TERM=dumb
 - chmod +x gradlew
 - "./gradlew -v"
