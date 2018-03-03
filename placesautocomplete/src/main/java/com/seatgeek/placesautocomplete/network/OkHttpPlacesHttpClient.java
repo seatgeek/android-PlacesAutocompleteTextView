@@ -1,14 +1,17 @@
 package com.seatgeek.placesautocomplete.network;
 
 import android.net.Uri;
+import android.util.Log;
 
+import com.seatgeek.placesautocomplete.Constants;
 import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.model.PlacesApiException;
 import com.seatgeek.placesautocomplete.model.PlacesApiResponse;
 import com.seatgeek.placesautocomplete.model.Status;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -18,10 +21,12 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
 
     OkHttpPlacesHttpClient(PlacesApiJsonParser parser) {
         super(parser);
-        okHttpClient = new OkHttpClient();
-        okHttpClient.setConnectTimeout(15L, TimeUnit.SECONDS);
-        okHttpClient.setReadTimeout(15L, TimeUnit.SECONDS);
-        okHttpClient.setWriteTimeout(15L, TimeUnit.SECONDS);
+
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(15L, TimeUnit.SECONDS)
+                .readTimeout(15L, TimeUnit.SECONDS)
+                .writeTimeout(15L, TimeUnit.SECONDS)
+                .build();
     }
 
     @Override
@@ -32,15 +37,23 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
 
         Response response = okHttpClient.newCall(request).execute();
 
-        T body = responseHandler.handleStreamResult(response.body().byteStream());
-
-        Status status = body.status;
-
-        if (status != null && !status.isSuccessful()) {
-            String err = body.error_message;
-            throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
-        } else {
-            return body;
+        try {
+            T body = responseHandler.handleStreamResult(response.body().byteStream());
+            Status status = body.status;
+            if (status != null && !status.isSuccessful()) {
+                String err = body.error_message;
+                throw new PlacesApiException(err != null ? err : "Unknown Places Api Error");
+            } else {
+                return body;
+            }
+        } finally {
+            if (response != null) {
+                try {
+                    response.body().close();
+                } catch (Exception e) {
+                    Log.w(Constants.LOG_TAG, "Exception Closing Response body..", e);
+                }
+            }
         }
     }
 }

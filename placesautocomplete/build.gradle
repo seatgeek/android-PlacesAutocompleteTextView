@@ -30,10 +30,10 @@ dependencies {
     api "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
     api "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    provided 'com.google.code.gson:gson:2.8.2'
-    provided 'com.squareup.okhttp:okhttp:2.2.0'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.7.6'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    compileOnly 'com.google.code.gson:gson:2.8.2'
+    testImplementation  'junit:junit:4.12'
+    testImplementation  'org.mockito:mockito-core:1.10.19'
 }
 
 modifyPom {
