@@ -1,17 +1,6 @@
-buildscript {
-    dependencies {
-        classpath "com.android.tools.build:gradle:${ANDROID_PLUGIN_VERSION}"
-    }
-}
-
-repositories {
-    jcenter()
-    maven {
-        url "https://maven.google.com"
-    }
-}
-
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion Integer.parseInt(TARGET_SDK_VERSION)
@@ -34,8 +23,8 @@ android {
 
 dependencies {
     implementation project(':placesautocomplete')
-
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
