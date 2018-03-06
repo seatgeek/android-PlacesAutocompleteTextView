@@ -8,9 +8,10 @@ import com.seatgeek.placesautocomplete.json.PlacesApiJsonParser;
 import com.seatgeek.placesautocomplete.model.PlacesApiException;
 import com.seatgeek.placesautocomplete.model.PlacesApiResponse;
 import com.seatgeek.placesautocomplete.model.Status;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -20,10 +21,12 @@ class OkHttpPlacesHttpClient extends AbstractPlacesHttpClient {
 
     OkHttpPlacesHttpClient(PlacesApiJsonParser parser) {
         super(parser);
-        okHttpClient = new OkHttpClient();
-        okHttpClient.setConnectTimeout(15L, TimeUnit.SECONDS);
-        okHttpClient.setReadTimeout(15L, TimeUnit.SECONDS);
-        okHttpClient.setWriteTimeout(15L, TimeUnit.SECONDS);
+
+        okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(15L, TimeUnit.SECONDS)
+                .readTimeout(15L, TimeUnit.SECONDS)
+                .writeTimeout(15L, TimeUnit.SECONDS)
+                .build();
     }
 
     @Override
