@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.MotionEvent;
@@ -170,9 +172,31 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
                 }
             }
         });
-        if(clearEnabled) {
-            enableClearButton(true);
-        }
+
+        this.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (clearEnabled) {
+                    if (s != null && s.length() > 0) {
+                        showClearButton(true);
+                    } else {
+                        showClearButton(false);
+                    }
+                } else {
+                    showClearButton(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         super.setDropDownBackgroundResource(R.drawable.pacv_popup_background_white);
     }
 
