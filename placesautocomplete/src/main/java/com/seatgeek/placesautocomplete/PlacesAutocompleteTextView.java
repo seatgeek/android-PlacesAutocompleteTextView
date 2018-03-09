@@ -508,6 +508,10 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
         api.setLanguageCode(this.languageCode);
     }
 
+    public void setCountry(String countryIso) {
+        api.setCountry(countryIso);
+    }
+
     // Copied from TextInputEditText to ensure extract mode hint works
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
