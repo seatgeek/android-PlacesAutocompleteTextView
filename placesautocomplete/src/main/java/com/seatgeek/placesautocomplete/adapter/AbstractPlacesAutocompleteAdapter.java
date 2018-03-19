@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
+import com.seatgeek.placesautocomplete.Filters;
 import com.seatgeek.placesautocomplete.PlacesApi;
 import com.seatgeek.placesautocomplete.history.AutocompleteHistoryManager;
 import com.seatgeek.placesautocomplete.model.AutocompleteResultType;
@@ -36,6 +37,7 @@ public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Pla
                 api,
                 autocompleteResultType,
                 history,
+                Filters.getDefault(),
                 new ArrayAdapterDelegate<Place>() {
 
                     @Override
@@ -128,5 +130,22 @@ public abstract class AbstractPlacesAutocompleteAdapter extends ArrayAdapter<Pla
     @Nullable
     public AutocompleteResultType getResultType() {
         return mFilter.getResultType();
+    }
+
+    /**
+     * Sets the filter to use
+     *
+     * @param filters the filter
+     */
+    public void setSessionFilter(@NonNull final Filters filters) {
+        mFilter.setSessionFilter(filters);
+    }
+
+    /**
+     * Get the filter to use
+     */
+    @NonNull
+    public Filters getSessionFilter() {
+        return mFilter.getSessionFilter();
     }
 }

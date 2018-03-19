@@ -69,6 +69,11 @@ xml property | java method | description
 `pacv_adapterClass` | `setAdapter()` | If you don't like the default `Adapter` for displaying the items in the dropdown list (it is pretty basic by default), you can override it by specifying your own in xml (by passing the fully-qualified classname) or using `setAdapter()`. An important note: because of how the filtering functionality works in the `PlacesAutocompleteTextView`, your custom adapter must extend `AbstractPlacesAutocompleteAdapter`.
 `pacv_clearEnabled` | `showClearButton()` | Show the typicall X button to the right of the `PlacesAutocompleteTextView` to let user clear the text. Defaults to false. Other methods for controlling the clear button is `setImgClearButton()` Override the default Clear image and add your own, `setOnClearListener()` Override the clear listener like what should happen when the X is pressed, default is clear text, `showClearButton()` show/hide it.
 
+#### Limited support for filtering result by country. 
+The Google Place Autocomplete service is a web service that returns place predictions in response to an HTTP request.
+Currently, you can filter by up to 5 countries. Countries must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code. 
+For example: it(Italy), us(USA) or cc the Cocos (Keeling) Islands. See the demo app for example of this.
+
 #### Need more details? `PlaceDetails`
 
 One of the requirements of our usage of this view was autofilling the payment and shipping addresses

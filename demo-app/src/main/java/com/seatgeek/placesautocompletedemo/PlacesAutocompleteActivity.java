@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.seatgeek.placesautocomplete.DetailsCallback;
+import com.seatgeek.placesautocomplete.Filters;
 import com.seatgeek.placesautocomplete.OnPlaceSelectedListener;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 import com.seatgeek.placesautocomplete.model.AddressComponent;
@@ -90,6 +91,15 @@ public class PlacesAutocompleteActivity extends AppCompatActivity {
                 });
             }
         });
+        // Filter result by country.
+        // Currently, you can use components to filter by up to 5 countries.
+        // Countries must be passed as a two character, ISO 3166-1 Alpha-2 compatible country code.
+        // https://developers.google.com/places/web-service/autocomplete
+        Filters f = new Filters();
+        f.setCountry("US");
+        f.setCountry("SE");
+        f.setCountry("UK");
+        mAutocomplete.getAutocompleteAdapter().setSessionFilter(f);
     }
 
     @Override

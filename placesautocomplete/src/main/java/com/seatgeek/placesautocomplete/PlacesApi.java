@@ -31,6 +31,8 @@ public class PlacesApi {
     private static final String PARAMETER_TYPE = "types";
     private static final String PARAMETER_PLACE_ID = "placeid";
     private static final String PARAMETER_LANGUAGE = "language";
+    private static final String PARAMETER_COMPONENT_COUNTRY = "country:";
+    private static final String PARAMETER_COMPONENETS = "components";
 
     private static final Long NO_BIAS_RADIUS = 20000000L;
     private static final Location NO_BIAS_LOCATION;
@@ -142,7 +144,8 @@ public class PlacesApi {
      * @param type the response type from the api
      * @throws IOException
      */
-    public PlacesAutocompleteResponse autocomplete(final String input, final AutocompleteResultType type) throws IOException {
+    public PlacesAutocompleteResponse autocomplete(final String input
+            , final AutocompleteResultType type, final Filters filters) throws IOException {
         final String finalInput = input == null ? "" : input;
 
         final AutocompleteResultType finalType = type == null ? DEFAULT_RESULT_TYPE : type;
@@ -175,6 +178,18 @@ public class PlacesApi {
             uriBuilder.appendQueryParameter(PARAMETER_LANGUAGE, languageCode);
         }
 
+        if (filters.hasCountry()) {
+            StringBuilder result = new StringBuilder();
+            for (String c : filters.getCountries()) {
+                result.append(PARAMETER_COMPONENT_COUNTRY);
+                result.append(c.toLowerCase()); // country code
+                result.append("|");
+            }
+            // Remove last "|"
+            result.replace(result.length() - 1, result.length(), "");
+
+            uriBuilder.appendQueryParameter(PARAMETER_COMPONENETS, result.toString());
+        }
         return httpClient.executeAutocompleteRequest(uriBuilder.build());
     }
 

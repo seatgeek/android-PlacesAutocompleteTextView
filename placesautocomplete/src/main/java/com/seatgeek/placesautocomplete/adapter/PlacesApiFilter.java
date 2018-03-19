@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Filter;
 
 import com.seatgeek.placesautocomplete.Constants;
+import com.seatgeek.placesautocomplete.Filters;
 import com.seatgeek.placesautocomplete.PlacesApi;
 import com.seatgeek.placesautocomplete.PlacesAutocompleteTextView;
 import com.seatgeek.placesautocomplete.history.AutocompleteHistoryManager;
@@ -35,13 +36,18 @@ public class PlacesApiFilter extends Filter {
     @NonNull
     private final ArrayAdapterDelegate<Place> adapterDelegate;
 
+    @NonNull
+    private Filters filters;
+
     public PlacesApiFilter(@NonNull final PlacesApi api,
                            @Nullable final AutocompleteResultType resultType,
                            @Nullable final AutocompleteHistoryManager historyManager,
+                           @NonNull final Filters filters,
                            @NonNull final ArrayAdapterDelegate<Place> adapterDelegate) {
         this.api = api;
         this.resultType = resultType;
         this.historyManager = historyManager;
+        this.filters = filters;
         this.adapterDelegate = adapterDelegate;
     }
 
@@ -73,7 +79,7 @@ public class PlacesApiFilter extends Filter {
             filterResults.count = pastSelections.size();
         } else {
             try {
-                final PlacesAutocompleteResponse response = api.autocomplete(finalStringConstraint, resultType);
+                final PlacesAutocompleteResponse response = api.autocomplete(finalStringConstraint, resultType, filters);
                 filterResults.values = response.predictions;
             } catch (final IOException e) {
                 Log.e(Constants.LOG_TAG, "Unable to fetch autocomplete results from the api", e);
@@ -146,5 +152,14 @@ public class PlacesApiFilter extends Filter {
     @Nullable
     public AutocompleteResultType getResultType() {
         return resultType;
+    }
+
+    public void setSessionFilter(@NonNull final Filters filters) {
+        this.filters = filters;
+    }
+
+    @NonNull
+    public Filters getSessionFilter() {
+        return filters;
     }
 }
