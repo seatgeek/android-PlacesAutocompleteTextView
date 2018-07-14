@@ -12,6 +12,7 @@
             <enum name="address" value="1"/>
             <enum name="establishment" value="2"/>
             <enum name="no_type" value="3"/>
+            <enum name="cities" value="4"/>
         </attr>
     </declare-styleable>
 
