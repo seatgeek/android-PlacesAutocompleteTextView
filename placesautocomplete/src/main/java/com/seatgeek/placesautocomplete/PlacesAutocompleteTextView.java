@@ -508,6 +508,17 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
         api.setLanguageCode(this.languageCode);
     }
 
+    /**
+     * Sets the country code used for spanning autocomplete calls.
+     * List of supportable codes can be seen in <a href="https://developers.google.com/maps/faq#languagesupport">documentation</a>
+     *
+     * @param countryCode the countryCode
+     */
+    public void setCountryCode(@Nullable String countryCode) {
+        this.countryCode = countryCode;
+        api.setCountryCode(this.countryCode);
+    }
+
     // Copied from TextInputEditText to ensure extract mode hint works
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
