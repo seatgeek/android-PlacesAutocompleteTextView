@@ -190,7 +190,7 @@ public class PlacesApi {
         }
 
         if (countryCode != null) {
-            uriBuilder.appendQueryParameter(PARAMETER_COMPONENT, countryCode);
+            uriBuilder.appendQueryParameter(PARAMETER_COMPONENT, "country:"+countryCode.toUpperCase());
         }
 
         return httpClient.executeAutocompleteRequest(uriBuilder.build());

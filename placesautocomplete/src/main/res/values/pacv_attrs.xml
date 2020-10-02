@@ -13,6 +13,7 @@
             <enum name="establishment" value="2"/>
             <enum name="no_type" value="3"/>
         </attr>
+        <attr name="pacv_countryCode" format="string" />
     </declare-styleable>
 
     <attr name="pacv_placesAutoCompleteTextViewStyle" format="reference"/>
