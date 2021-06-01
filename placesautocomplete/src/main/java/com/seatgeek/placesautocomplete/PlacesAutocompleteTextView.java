@@ -57,6 +57,9 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     @Nullable
     private String languageCode;
 
+    @Nullable
+    private String countryCode;
+
     private boolean completionEnabled = true;
 
     private boolean clearEnabled;
@@ -123,6 +126,7 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
         String layoutAdapterClass = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_adapterClass);
         String layoutHistoryFile = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_historyFile);
         languageCode = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_languageCode);
+        countryCode = typedArray.getString(R.styleable.PlacesAutocompleteTextView_pacv_countryCode);
         resultType = AutocompleteResultType.fromEnum(typedArray.getInt(R.styleable.PlacesAutocompleteTextView_pacv_resultType, PlacesApi.DEFAULT_RESULT_TYPE.ordinal()));
         clearEnabled = typedArray.getBoolean(R.styleable.PlacesAutocompleteTextView_pacv_clearEnabled, false);
         typedArray.recycle();
@@ -146,6 +150,10 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
 
         if (languageCode != null) {
             api.setLanguageCode(languageCode);
+        }
+
+        if (countryCode != null) {
+            api.setCountryCode(countryCode);
         }
 
         if (layoutAdapterClass != null) {
@@ -506,6 +514,17 @@ public class PlacesAutocompleteTextView extends AppCompatAutoCompleteTextView {
     public void setLanguageCode(@Nullable String languageCode) {
         this.languageCode = languageCode;
         api.setLanguageCode(this.languageCode);
+    }
+
+    /**
+     * Sets the country code used for spanning autocomplete calls.
+     * List of supportable codes can be seen in <a href="https://developers.google.com/maps/faq#languagesupport">documentation</a>
+     *
+     * @param countryCode the countryCode
+     */
+    public void setCountryCode(@Nullable String countryCode) {
+        this.countryCode = countryCode;
+        api.setCountryCode(this.countryCode);
     }
 
     // Copied from TextInputEditText to ensure extract mode hint works

@@ -28,6 +28,7 @@ public class PlacesApi {
     private static final String PARAMETER_RADIUS = "radius";
     private static final String PARAMETER_INPUT = "input";
     private static final String PARAMETER_KEY = "key";
+    private static final String PARAMETER_COMPONENT = "components";
     private static final String PARAMETER_TYPE = "types";
     private static final String PARAMETER_PLACE_ID = "placeid";
     private static final String PARAMETER_LANGUAGE = "language";
@@ -55,6 +56,9 @@ public class PlacesApi {
 
     @Nullable
     private String languageCode;
+
+    @Nullable
+    private String countryCode;
 
     private boolean locationBiasEnabled = true;
 
@@ -136,6 +140,16 @@ public class PlacesApi {
     }
 
     /**
+     * Sets the countryCode code used for autocomplete and place details calls.
+     * List of supportable codes can be seen in <a href="https://developers.google.com/maps/faq#languagesupport">documentation</a>
+     *
+     * @param countryCode the countryCode code
+     */
+    public void setCountryCode(@Nullable String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    /**
      * Performs autocompletion for the given input text and the type of response desired. This is a
      * synchronous call, you must provide your own Async if you need it
      * @param input the textual input that will be autocompleted
@@ -173,6 +187,10 @@ public class PlacesApi {
 
         if (languageCode != null) {
             uriBuilder.appendQueryParameter(PARAMETER_LANGUAGE, languageCode);
+        }
+
+        if (countryCode != null) {
+            uriBuilder.appendQueryParameter(PARAMETER_COMPONENT, "country:"+countryCode.toUpperCase());
         }
 
         return httpClient.executeAutocompleteRequest(uriBuilder.build());
