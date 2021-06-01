@@ -15,6 +15,9 @@ public enum AutocompleteResultType {
     /**
      * Any location represented by a full postal address that is a business establishment
      */
+
+    CITY("(cities)"),
+
     ESTABLISHMENT("establishment"),
     /**
      * Any location or establishment
